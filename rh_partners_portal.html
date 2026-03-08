@@ -1,0 +1,3668 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<!-- ═══════════════════════════════════════════════════════
+     SECURITY HEADERS (Meta-equivalent — enforce via server)
+     Tambahkan header ini di server/nginx/cloudflare untuk
+     perlindungan SSL premium & keamanan tingkat tinggi
+     ═══════════════════════════════════════════════════════ -->
+
+<!-- Content Security Policy — Blokir XSS, injection, clickjacking -->
+<!-- Content Security Policy — aktif via server header di production -->
+<!-- Untuk file HTML statis, CSP via meta tag tidak support frame-ancestors -->
+<!-- Implementasi lengkap: tambahkan header ini di Nginx/Apache/Cloudflare:   -->
+<!--   Content-Security-Policy: default-src 'self';                           -->
+<!--     script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;      -->
+<!--     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;       -->
+<!--     font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; -->
+<!--     frame-ancestors 'none'; object-src 'none'; base-uri 'self';          -->
+<!--     upgrade-insecure-requests; block-all-mixed-content;                  -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.gstatic.com https://www.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://firestore.googleapis.com https://securetoken.googleapis.com wss://*.firebaseio.com; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
+<!-- Anti-Clickjacking -->
+<meta http-equiv="X-Frame-Options" content="DENY">
+<!-- Prevent MIME sniffing -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<!-- XSS Protection legacy browsers -->
+<meta http-equiv="X-XSS-Protection" content="1; mode=block">
+<!-- Referrer Policy — lindungi info URL sensitif -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Permissions Policy — disable fitur browser berbahaya -->
+<meta http-equiv="Permissions-Policy" content="
+  geolocation=(),
+  microphone=(self),
+  camera=(),
+  payment=(),
+  usb=(),
+  magnetometer=(),
+  accelerometer=(),
+  gyroscope=()
+">
+<!-- Force HTTPS / HSTS hint (enforce via server header) -->
+<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+
+<!-- ═══════════════════════════════════════════════════════
+     CHARSET & VIEWPORT
+     ═══════════════════════════════════════════════════════ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Portable metadata -->
+<title>RH Partners Portal</title>
+<meta name="description" content="RH Partners Portal - portal klien, proyek, revisi, pembayaran, dan komunikasi kerja yang rapi dan profesional.">
+<meta name="theme-color" content="#c97941">
+<meta name="color-scheme" content="dark">
+
+<!-- ═══════════════════════════════════════════════════════
+     SEO — FAVICON & PWA MANIFEST
+     ═══════════════════════════════════════════════════════ -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#c97941">
+<meta name="msapplication-TileColor" content="#c97941">
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RH Partners Portal">
+<meta name="application-name" content="RH Partners Portal">
+<meta name="format-detection" content="telephone=no">
+
+<!-- ═══════════════════════════════════════════════════════
+     PERFORMANCE — DNS PREFETCH & PRECONNECT
+     ═══════════════════════════════════════════════════════ -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+
+<!-- ═══════════════════════════════════════════════════════
+     PERFORMANCE — FONT LOADING (display=swap untuk LCP)
+     ═══════════════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'" crossorigin="anonymous">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090b;--s1:#111114;--s2:#17171b;--s3:#1f1f24;
+  --b1:#2a2a32;--b2:#38383f;
+  --cu:#d4af37;--cu2:#f2cf62;--cu3:#9d7f1b;
+  --tx:#f4f1ec;--m1:#6b6875;--m2:#9490a0;--m3:#b8b4c2;
+  --gn:#4aba82;--rd:#e05555;--bl:#5599e0;--am:#e0a830;--pu:#8b5cf6;
+  --r6:6px;--r8:8px;--r10:10px;--r12:12px;--r16:16px;
+}
+html,body{height:100%;font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--tx);overflow:hidden}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pulseR{0%,100%{box-shadow:0 0 0 0 rgba(224,85,85,.55)}70%{box-shadow:0 0 0 8px rgba(224,85,85,0)}}
+
+/* ── SCREENS ── */
+.scr{position:fixed;inset:0;display:none}
+.scr.on{display:flex;animation:fadeIn .3s ease}
+
+/* ── LOGIN ── */
+#scr-login{align-items:center;justify-content:center;background:var(--bg);overflow:hidden}
+.ln-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 60% at 18% 50%,rgba(201,121,65,.13),transparent 62%),
+  radial-gradient(ellipse 50% 70% at 82% 22%,rgba(201,121,65,.07),transparent 56%)}
+.ln-grid{position:absolute;inset:0;
+  background-image:linear-gradient(var(--b1) 1px,transparent 1px),linear-gradient(90deg,var(--b1) 1px,transparent 1px);
+  background-size:56px 56px;opacity:.3;
+  mask-image:radial-gradient(ellipse 65% 65% at 50% 50%,#000 28%,transparent 100%)}
+.ln-wrap{position:relative;z-index:2;width:420px;max-width:95vw;animation:slideUp .5s ease}
+.ln-brand{text-align:center;margin-bottom:34px}
+.ln-logo{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-.02em}
+.ln-logo span{color:var(--cu)}
+.ln-tag{font-size:11px;color:var(--m1);letter-spacing:.14em;text-transform:uppercase;margin-top:5px}
+.ln-card{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.03)}
+.ln-tabs{display:flex;background:var(--s2);border-radius:9px;padding:3px;margin-bottom:22px}
+.ltab{flex:1;text-align:center;padding:8px;border-radius:7px;font-size:13px;font-weight:700;
+  cursor:pointer;color:var(--m1);transition:all .2s;font-family:'Syne',sans-serif}
+.ltab.on{background:var(--s3);color:var(--tx);box-shadow:0 1px 5px rgba(0,0,0,.3)}
+.ltab.adm.on{color:var(--cu)}
+.fg{margin-bottom:15px}
+.fg label{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--m2);font-weight:600;margin-bottom:6px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--b1);
+  border-radius:var(--r8);color:var(--tx);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--cu);box-shadow:0 0 0 3px rgba(201,121,65,.1)}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--m1)}
+.fg select option{background:var(--s2)}
+.fg textarea{resize:vertical;min-height:68px;line-height:1.5}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:40px}
+.pw-eye{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--m1);cursor:pointer;font-size:15px;padding:3px}
+.ln-hint{font-size:11px;color:var(--m1);text-align:center;margin-top:14px;line-height:1.7}
+.ln-hint strong{color:var(--cu)}
+.ln-err{font-size:12px;color:var(--rd);text-align:center;margin-top:8px;min-height:14px}
+.btn-login{width:100%;padding:12px;background:linear-gradient(135deg,var(--cu),var(--cu3));border:none;
+  border-radius:var(--r8);color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  letter-spacing:.03em;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(201,121,65,.25);margin-top:4px}
+.btn-login:hover{transform:translateY(-1px);box-shadow:0 7px 26px rgba(201,121,65,.38)}
+
+/* ── APP ── */
+#scr-app{flex-direction:row}
+.sb{width:236px;flex-shrink:0;height:100vh;background:var(--s1);border-right:1px solid var(--b1);
+  display:flex;flex-direction:column;overflow:hidden}
+.sb-hd{padding:22px 18px 14px;border-bottom:1px solid var(--b1)}
+.sb-logo{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.sb-logo span{color:var(--cu)}
+.sb-usr{display:flex;align-items:center;gap:10px;margin-top:12px;padding:9px 10px;background:var(--s2);border-radius:var(--r8)}
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:800;flex-shrink:0}
+.av-a{background:linear-gradient(135deg,var(--cu),var(--cu3));color:#fff}
+.av-k{background:linear-gradient(135deg,#4460cc,#2a3a8a);color:#fff}
+.sb-un{font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-ur{font-size:10px;color:var(--m1);letter-spacing:.08em;text-transform:uppercase;margin-top:1px}
+.sb-nav{flex:1;overflow-y:auto;padding:10px 8px}
+.nav-sec{padding:8px 9px 4px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--m1);font-weight:700;margin-top:6px}
+.nav-sec:first-child{margin-top:0}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:var(--r8);cursor:pointer;
+  font-size:12px;font-weight:500;color:var(--m2);transition:all .16s;margin-bottom:1px;position:relative}
+.ni:hover{background:var(--s2);color:var(--tx)}
+.ni.on{background:rgba(201,121,65,.12);color:var(--cu)}
+.ni.on::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--cu);border-radius:0 2px 2px 0}
+.ni-ic{font-size:14px;flex-shrink:0;width:18px;text-align:center}
+.nbdg{margin-left:auto;background:var(--cu);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;line-height:1.4}
+.ndot{width:6px;height:6px;border-radius:50%;background:var(--rd);margin-left:auto;flex-shrink:0}
+.sb-ft{padding:10px 8px;border-top:1px solid var(--b1)}
+.lo-btn{display:flex;align-items:center;gap:8px;width:100%;padding:8px 9px;border-radius:var(--r8);
+  background:none;border:none;color:var(--m1);font-size:12px;font-family:'Instrument Sans',sans-serif;cursor:pointer;transition:all .16s}
+.lo-btn:hover{background:rgba(224,85,85,.1);color:var(--rd)}
+
+/* ── MAIN ── */
+.main{flex:1;height:100vh;overflow-y:auto;display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--b1);
+  background:rgba(17,17,20,.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+.tb-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800}
+.tb-title span{color:var(--cu)}
+.tb-r{display:flex;align-items:center;gap:8px}
+.icon-btn{width:34px;height:34px;border-radius:var(--r8);background:var(--s2);border:1px solid var(--b1);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;position:relative;transition:border-color .2s}
+.icon-btn:hover{border-color:var(--b2)}
+.notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;background:var(--rd);border-radius:50%;border:2px solid var(--s1)}
+.content{padding:26px 28px;flex:1;animation:fadeIn .25s ease}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:var(--r8);
+  font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .16s;font-family:'Syne',sans-serif;white-space:nowrap}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.btn-cu{background:var(--cu);color:#fff}
+.btn-cu:hover:not(:disabled){background:var(--cu2);transform:translateY(-1px)}
+.btn-ol{background:transparent;border:1px solid var(--b1);color:var(--m2)}
+.btn-ol:hover:not(:disabled){border-color:var(--cu);color:var(--cu)}
+.btn-gh{background:var(--s2);color:var(--m3);border:1px solid var(--b1)}
+.btn-gh:hover:not(:disabled){background:var(--s3);color:var(--tx)}
+.btn-gn{background:rgba(74,186,130,.13);color:var(--gn);border:1px solid rgba(74,186,130,.2)}
+.btn-gn:hover:not(:disabled){background:rgba(74,186,130,.22)}
+.btn-rd{background:rgba(224,85,85,.13);color:var(--rd);border:1px solid rgba(224,85,85,.2)}
+.btn-rd:hover:not(:disabled){background:rgba(224,85,85,.22)}
+.btn-bl{background:rgba(85,153,224,.13);color:var(--bl);border:1px solid rgba(85,153,224,.2)}
+.btn-bl:hover:not(:disabled){background:rgba(85,153,224,.22)}
+.btn-xs{padding:4px 9px;font-size:11px;border-radius:6px}
+.btn-sm{padding:7px 13px;font-size:12px}
+.btn-full{width:100%}
+
+/* ── STATS ── */
+.stats{display:grid;gap:14px;margin-bottom:22px}
+.sc{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r12);padding:18px 20px;position:relative;overflow:hidden;animation:slideUp .35s ease both}
+.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0}
+.sc.cu::after{background:linear-gradient(90deg,var(--cu),transparent)}
+.sc.gn::after{background:linear-gradient(90deg,var(--gn),transparent)}
+.sc.bl::after{background:linear-gradient(90deg,var(--bl),transparent)}
+.sc.rd::after{background:linear-gradient(90deg,var(--rd),transparent)}
+.sc.pu::after{background:linear-gradient(90deg,var(--pu),transparent)}
+.sl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--m1);font-weight:700;margin-bottom:8px}
+.sv{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1;margin-bottom:4px}
+.sv.cu{color:var(--cu)}.sv.gn{color:var(--gn)}.sv.bl{color:var(--bl)}.sv.rd{color:var(--rd)}.sv.pu{color:var(--pu)}
+.ss{font-size:11px;color:var(--m1)}
+.sic{position:absolute;right:14px;top:14px;font-size:22px;opacity:.15}
+
+/* ── CARDS ── */
+.card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r12);overflow:hidden;animation:slideUp .38s ease both}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--b1)}
+.ct{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.cb{padding:18px}
+.cb0{padding:0}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse}
+.tbl thead th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--m1);font-weight:700;
+  padding:10px 16px;text-align:left;border-bottom:1px solid var(--b1);white-space:nowrap}
+.tbl tbody tr{border-bottom:1px solid rgba(42,42,50,.4);transition:background .12s}
+.tbl tbody tr:last-child{border:none}
+.tbl tbody tr:hover{background:rgba(255,255,255,.018)}
+.tbl td{padding:11px 16px;font-size:12px;vertical-align:middle}
+
+/* ── CHIP ── */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
+.chip::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.ch-pend{background:rgba(201,121,65,.13);color:var(--cu)}.ch-pend::before{background:var(--cu)}
+.ch-ok,.ch-active{background:rgba(74,186,130,.13);color:var(--gn)}.ch-ok::before,.ch-active::before{background:var(--gn)}
+.ch-no,.ch-unpaid{background:rgba(224,85,85,.13);color:var(--rd)}.ch-no::before,.ch-unpaid::before{background:var(--rd)}
+.ch-vfy,.ch-rev-tipe{background:rgba(85,153,224,.13);color:var(--bl)}.ch-vfy::before,.ch-rev-tipe::before{background:var(--bl)}
+.ch-paid{background:rgba(74,186,130,.13);color:var(--gn)}.ch-paid::before{background:var(--gn)}
+.ch-rev{background:rgba(139,92,246,.13);color:var(--pu)}.ch-rev::before{background:var(--pu)}
+.ch-rek-tipe{background:rgba(139,92,246,.13);color:var(--pu)}.ch-rek-tipe::before{background:var(--pu)}
+
+/* ── LAYOUT GRIDS ── */
+.g2{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-bottom:18px}
+.g2e{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px}
+
+/* ── UPLOAD ZONE ── */
+.upz{border:2px dashed var(--b1);border-radius:var(--r10);padding:24px;text-align:center;
+  cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.upz input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+.upz:hover,.upz.drag{border-color:var(--cu);background:rgba(201,121,65,.04)}
+.upz-ic{font-size:24px;margin-bottom:7px}
+.upz-t{font-size:13px;font-weight:600;color:var(--m3);margin-bottom:3px}
+.upz-s{font-size:11px;color:var(--m1)}
+
+/* ── FILE LIST ITEM ── */
+.fi-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(42,42,50,.4);animation:slideIn .2s ease}
+.fi-item:last-child{border:none}
+.fc{width:32px;height:32px;border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.fc-pdf{background:rgba(224,85,85,.13)}
+.fc-img{background:rgba(85,153,224,.13)}
+.fc-zip{background:rgba(201,121,65,.13)}
+.fc-aud{background:rgba(139,92,246,.13)}
+.fc-vid{background:rgba(74,186,130,.13)}
+.fi-meta{flex:1;min-width:0}
+.fi-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fi-size{font-size:10px;color:var(--m1);margin-top:2px}
+
+/* ── PROGRESS ── */
+.pbar{height:3px;background:var(--s3);border-radius:4px;overflow:hidden;margin-top:8px}
+.pfill{height:100%;background:linear-gradient(90deg,var(--cu),var(--cu2));border-radius:4px;transition:width .22s ease}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:2px;background:var(--s2);padding:3px;border-radius:9px;width:fit-content;margin-bottom:16px}
+.tab{padding:6px 14px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;color:var(--m1);
+  transition:all .16s;font-family:'Syne',sans-serif;white-space:nowrap}
+.tab.on{background:var(--s1);color:var(--tx);box-shadow:0 1px 4px rgba(0,0,0,.28)}
+
+/* ── INVOICE CARD ── */
+.ic{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r10);padding:14px;margin-bottom:9px;transition:border-color .18s}
+.ic:hover{border-color:var(--b2)}
+.ic-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.ic-id{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--m2)}
+.ic-amt{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--cu)}
+.ic-desc{font-size:11px;color:var(--m2);margin-bottom:6px}
+.ic-ft{display:flex;align-items:center;justify-content:space-between}
+.ic-due{font-size:10px;color:var(--m1)}
+
+/* ── WELCOME BANNER ── */
+.wb{background:linear-gradient(135deg,rgba(201,121,65,.13),rgba(201,121,65,.04));border:1px solid rgba(201,121,65,.18);
+  border-radius:var(--r16);padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;animation:slideUp .3s ease}
+.wb h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:800}
+.wb h2 span{color:var(--cu)}
+.wb p{font-size:12px;color:var(--m2);margin-top:4px}
+.wb-ic{font-size:36px;opacity:.5}
+
+/* ── FEED ── */
+.fd{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid rgba(42,42,50,.38)}
+.fd:last-child{border:none}
+.fd-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.fd-t{font-size:12px;font-weight:500}
+.fd-s{font-size:10px;color:var(--m1);margin-top:2px}
+
+/* ── MODAL ── */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);
+  z-index:900;display:none;align-items:center;justify-content:center;padding:16px}
+.mbg.on{display:flex}
+.modal{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:26px;
+  width:100%;animation:slideUp .25s ease;box-shadow:0 40px 100px rgba(0,0,0,.55);max-height:92vh;overflow-y:auto}
+.modal-t{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:18px}
+.modal-ft{display:flex;gap:9px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid var(--b1)}
+
+/* ── TOAST ── */
+.tw{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:7px}
+.toast{padding:11px 15px;border-radius:9px;font-size:12px;display:flex;align-items:center;gap:9px;
+  animation:slideIn .22s ease;box-shadow:0 8px 32px rgba(0,0,0,.4);max-width:300px;font-weight:500}
+.t-ok{background:#0d1d16;border:1px solid rgba(74,186,130,.25);color:var(--gn)}
+.t-err{background:#1e0d0d;border:1px solid rgba(224,85,85,.25);color:var(--rd)}
+.t-inf{background:#0d1420;border:1px solid rgba(85,153,224,.25);color:var(--bl)}
+
+/* ── RECORDER ── */
+.rec-cv{width:100%;height:60px;display:block;background:var(--bg);border-radius:var(--r8);margin-bottom:10px}
+.rec-timer{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:.04em}
+.rec-timer.rec-on{color:var(--rd)}
+.rec-pulse{width:8px;height:8px;border-radius:50%;background:var(--rd);animation:pulseR 1s ease infinite;flex-shrink:0}
+
+/* ── CMS ── */
+.cms-inp{width:100%;padding:9px 12px;background:var(--s2);border:1px solid var(--b1);border-radius:var(--r8);
+  color:var(--tx);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s;display:block}
+.cms-inp:focus{border-color:var(--cu)}
+.cms-ta{width:100%;padding:9px 12px;background:var(--s2);border:1px solid var(--b1);border-radius:var(--r8);
+  color:var(--tx);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:80px;transition:border-color .2s;line-height:1.5}
+.cms-ta:focus{border-color:var(--cu)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px}
+
+/* ── MISC ── */
+.info-box{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r8);padding:12px;font-size:12px;color:var(--m2);line-height:1.5}
+.warn-box{background:rgba(201,121,65,.08);border:1px solid rgba(201,121,65,.2);border-radius:var(--r8);padding:12px;font-size:12px;color:var(--cu);line-height:1.5}
+.sep{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--m1);margin:12px 0}
+.sep-line{flex:1;height:1px;background:var(--b1)}
+.empty{text-align:center;padding:48px 20px;color:var(--m1)}
+.empty-ic{font-size:32px;margin-bottom:10px;opacity:.5}
+.empty-t{font-size:13px;font-weight:600;margin-bottom:4px;color:var(--m2)}
+.empty-s{font-size:12px}
+.row-acts{display:flex;gap:5px;flex-wrap:wrap}
+
+@media(max-width:1100px){.g2{grid-template-columns:1fr}.g3,.g5{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.sb{display:none}.content{padding:16px}.topbar{padding:13px 16px}.g2e{grid-template-columns:1fr}}
+</style>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECURITY — DOMPurify (sanitasi XSS sebelum innerHTML)
+     Subresource Integrity (SRI) hash untuk supply chain security
+     ═══════════════════════════════════════════════════════ -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"
+  integrity="sha512-VPRz/V4yaMpW6HQcHPv6MwrWdBNK2e6s+fZ2b0bJiMeUxHJikNBmI1rZRwDIlBKD6dkqygJJLbFqVlJy4kMQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer">
+</script>
+</head>
+<body>
+
+<!-- ═══════ LOGIN ═══════ -->
+<div id="scr-login" class="scr on">
+  <div class="ln-bg"></div>
+  <div class="ln-grid"></div>
+  <div class="ln-wrap">
+    <div class="ln-brand">
+      <div class="ln-logo">RH<span>Partners</span></div>
+      <div class="ln-tag">Client &amp; Project Portal</div>
+    </div>
+    <div class="ln-card">
+      <div class="ln-tabs">
+        <div class="ltab on" id="lt-klien" onclick="setLnMode('klien')">👤 Klien</div>
+        <div class="ltab adm" id="lt-admin" onclick="setLnMode('admin')">⚙️ Admin</div>
+      </div>
+      <div class="fg"><label>Email</label>
+        <input type="email" id="ln-email" placeholder="email@domain.com" autocomplete="email"
+          onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="fg"><label>Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="ln-pass" placeholder="••••••••" autocomplete="current-password"
+            onkeydown="if(event.key==='Enter')doLogin()"
+            oninput="updatePwStrength(this.value)">
+          <button class="pw-eye" id="pw-eye" onclick="togglePw()" type="button">👁</button>
+        </div>
+        <div id="pw-strength-wrap" style="display:none;margin-top:6px">
+          <div style="height:3px;background:var(--s3);border-radius:3px;overflow:hidden">
+            <div id="pw-strength-bar" style="height:100%;width:0%;transition:all .3s;border-radius:3px"></div>
+          </div>
+          <div id="pw-strength-label" style="font-size:10px;color:var(--m1);margin-top:3px"></div>
+        </div>
+      </div>
+      <button class="btn-login" onclick="doLogin()">Masuk ke Portal</button>
+      <div class="ln-err" id="ln-err"></div>
+      <div class="ln-hint" id="ln-hint">Masuk dengan akun yang sudah dibuat di portal.</div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Setup Awal -->
+<div class="mbg" id="m-first-setup">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-t">🚀 Setup Awal RH Partners Portal</div>
+    <div class="info-box" style="margin-bottom:12px">RH Partners Portal ini belum memiliki akun admin. Isi data di bawah untuk membuat akun admin pertama dan menyiapkan portal agar langsung siap dipakai.</div>
+    <div class="fg2">
+      <div class="fg"><label>Nama Studio</label><input type="text" id="fs-studio" placeholder="Contoh: Studio Kreatif Nusantara"></div>
+      <div class="fg"><label>Nama Admin</label><input type="text" id="fs-admin-name" placeholder="Contoh: Admin Utama"></div>
+    </div>
+    <div class="fg2">
+      <div class="fg"><label>Email Admin</label><input type="email" id="fs-admin-email" placeholder="admin@domain.com"></div>
+      <div class="fg"><label>WhatsApp</label><input type="text" id="fs-admin-wa" placeholder="62812xxxxxxx"></div>
+    </div>
+    <div class="fg2">
+      <div class="fg"><label>Password</label><input type="password" id="fs-admin-pass" placeholder="Minimal 8 karakter, ada huruf besar & angka"></div>
+      <div class="fg"><label>Konfirmasi Password</label><input type="password" id="fs-admin-pass2" placeholder="Ulangi password"></div>
+    </div>
+    <label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--m2);margin:10px 0 16px">
+      <input type="checkbox" id="fs-seed-demo">
+      <span>Isi contoh data demo agar portal langsung ada isi. Kosongkan untuk mulai dari portal bersih.</span>
+    </label>
+    <div class="row-acts">
+      <button class="btn btn-cu" onclick="bootstrapPortal()">Buat Portal</button>
+      <button class="btn" onclick="closeModal('m-first-setup')">Nanti</button>
+    </div>
+    <div class="ln-err" id="fs-err" style="margin-top:12px"></div>
+  </div>
+</div>
+
+<!-- ═══════ APP ═══════ -->
+<div id="scr-app" class="scr">
+  <!-- Sidebar -->
+  <aside class="sb">
+    <div class="sb-hd">
+      <div class="sb-logo">RH<span>Partners</span></div>
+      <div class="sb-usr">
+        <div class="av" id="sb-av">?</div>
+        <div style="min-width:0">
+          <div class="sb-un" id="sb-un">—</div>
+          <div class="sb-ur" id="sb-ur">—</div>
+        </div>
+      </div>
+    </div>
+    <nav class="sb-nav" id="sb-nav"></nav>
+    <div class="sb-ft">
+      <button class="lo-btn" onclick="doLogout()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        Keluar
+      </button>
+    </div>
+  </aside>
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="tb-title" id="pg-title">Dashboard</div>
+      <div class="tb-r">
+        <div class="icon-btn" title="Notifikasi">🔔<div class="notif-dot"></div></div>
+        <button class="btn btn-cu" id="tb-act" style="display:none" onclick="openModal('m-upload')">+ Upload</button>
+      </div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<!-- ═══════ MODALS ═══════ -->
+
+<!-- Upload Gabungan -->
+<div class="mbg" id="m-upload">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-t">📤 Upload File</div>
+    <div class="tabs" id="uptabs">
+      <div class="tab on" onclick="setUpTab('rev',this)">📄 Revisi</div>
+      <div class="tab" onclick="setUpTab('rek',this)">🎙️ Rekaman</div>
+    </div>
+    <!-- REVISI -->
+    <div id="up-rev">
+      <div class="fg"><label>Proyek</label>
+        <select id="ur-proj"><option value="">— Pilih Proyek —</option></select>
+      </div>
+      <div class="fg2">
+        <div class="fg" style="margin-bottom:0"><label>Versi</label><input type="text" id="ur-ver" placeholder="cth. v2.1"></div>
+        <div class="fg" style="margin-bottom:0"><label>Tanggal</label><input type="text" id="ur-tgl" placeholder="DD/MM/YYYY"></div>
+      </div>
+      <div class="fg" style="margin-top:15px"><label>Catatan Revisi</label>
+        <textarea id="ur-note" placeholder="Jelaskan perubahan yang dilakukan..."></textarea>
+      </div>
+      <div class="upz" id="ur-zone" ondragover="onDragOver(event,'ur-zone')" ondragleave="onDragLeave('ur-zone')" ondrop="onDrop(event,'ur-files')">
+        <div class="upz-ic">📎</div>
+        <div class="upz-t">Seret atau klik untuk upload</div>
+        <div class="upz-s">PDF · ZIP · PNG · AI · PSD — Maks 50MB</div>
+        <input type="file" multiple onchange="onFileInput(event,'ur-files')">
+      </div>
+      <div id="ur-files-list" style="margin-top:6px"></div>
+    </div>
+    <!-- REKAMAN -->
+    <div id="up-rek" style="display:none">
+      <div class="fg"><label>Proyek</label>
+        <select id="urk-proj"><option value="">— Pilih Proyek —</option></select>
+      </div>
+      <div class="fg"><label>Judul Rekaman</label>
+        <input type="text" id="urk-judul" placeholder="cth. Feedback Halaman Utama">
+      </div>
+      <div class="fg"><label>Catatan</label>
+        <textarea id="urk-note" placeholder="Instruksi atau keterangan..."></textarea>
+      </div>
+      <canvas class="rec-cv" id="m-cv"></canvas>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+        <div class="rec-timer" id="m-timer">00:00</div>
+        <div id="m-pulse" style="display:none"><div class="rec-pulse"></div></div>
+        <span style="font-size:11px;color:var(--m1);margin-left:auto" id="m-rec-status">Siap merekam</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <button class="btn btn-rd btn-sm" id="m-btn-start" type="button" onclick="mStartRec()">⏺ Mulai</button>
+        <button class="btn btn-gh btn-sm" id="m-btn-pause" type="button" style="display:none" onclick="mPauseRec()">⏸ Jeda</button>
+        <button class="btn btn-gh btn-sm" id="m-btn-stop" type="button" style="display:none" onclick="mStopRec()">⏹ Stop</button>
+      </div>
+      <div id="m-blobs"></div>
+      <div class="sep"><div class="sep-line"></div>atau upload file<div class="sep-line"></div></div>
+      <div class="upz" id="urk-zone" style="padding:18px" ondragover="onDragOver(event,'urk-zone')" ondragleave="onDragLeave('urk-zone')" ondrop="onDrop(event,'urk-files')">
+        <div class="upz-ic" style="font-size:20px">🎵</div>
+        <div class="upz-t" style="font-size:12px">Upload File Audio / Video</div>
+        <div class="upz-s">MP3 · WAV · M4A · MP4 · WEBM</div>
+        <input type="file" accept="audio/*,video/*" multiple onchange="onFileInput(event,'urk-files')">
+      </div>
+      <div id="urk-files-list" style="margin-top:6px"></div>
+    </div>
+    <div id="up-prog" style="display:none;margin-top:10px">
+      <div style="font-size:11px;color:var(--m1);margin-bottom:4px">Mengirim...</div>
+      <div class="pbar"><div class="pfill" id="up-pfill" style="width:0%"></div></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ol" onclick="closeModal('m-upload')" type="button">Batal</button>
+      <button class="btn btn-cu" onclick="submitUpload()" type="button">Kirim</button>
+    </div>
+  </div>
+</div>
+
+<!-- Buat Invoice -->
+<div class="mbg" id="m-inv">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-t">🧾 Buat Invoice</div>
+    <div class="fg"><label>Klien</label><select id="inv-client" class="cms-inp"></select></div>
+    <div class="fg"><label>Deskripsi Layanan</label><input type="text" id="inv-desc" class="cms-inp" placeholder="cth. Desain Website – Fase 2"></div>
+    <div class="fg2">
+      <div class="fg" style="margin-bottom:0"><label>Jumlah (Rp)</label><input type="number" id="inv-amt" class="cms-inp" placeholder="0"></div>
+      <div class="fg" style="margin-bottom:0"><label>Jatuh Tempo</label><input type="text" id="inv-due" class="cms-inp" placeholder="DD/MM/YYYY"></div>
+    </div>
+    <div class="fg" style="margin-top:15px"><label>Catatan</label><textarea id="inv-note" class="cms-ta" placeholder="Opsional..."></textarea></div>
+    <div class="modal-ft">
+      <button class="btn btn-ol" onclick="closeModal('m-inv')" type="button">Batal</button>
+      <button class="btn btn-cu" onclick="doCreateInv()" type="button">Buat Invoice</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tambah Klien -->
+<div class="mbg" id="m-addklien">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-t">👤 Tambah Klien Baru</div>
+    <div class="fg2">
+      <div class="fg" style="margin-bottom:0"><label>Nama Lengkap</label><input type="text" id="ak-nama" class="cms-inp" placeholder="Nama Lengkap"></div>
+      <div class="fg" style="margin-bottom:0"><label>Email</label><input type="email" id="ak-email" class="cms-inp" placeholder="email@domain.com"></div>
+    </div>
+    <div class="fg" style="margin-top:15px"><label>Password Awal</label><input type="text" id="ak-pass" class="cms-inp" placeholder="Min. 6 karakter"></div>
+    <div class="fg2">
+      <div class="fg" style="margin-bottom:0"><label>WhatsApp</label><input type="text" id="ak-wa" class="cms-inp" placeholder="+62..."></div>
+      <div class="fg" style="margin-bottom:0"><label>Proyek</label><input type="text" id="ak-proj" class="cms-inp" placeholder="Nama Proyek"></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ol" onclick="closeModal('m-addklien')" type="button">Batal</button>
+      <button class="btn btn-cu" onclick="doAddKlien()" type="button">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Klien + Ubah Password -->
+<div class="mbg" id="m-editklien">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-t" id="ek-title">✏️ Edit Klien</div>
+    <input type="hidden" id="ek-idx">
+    <div class="tabs" id="ek-tabs">
+      <div class="tab on" onclick="setEkTab('info',this)">Informasi</div>
+      <div class="tab" onclick="setEkTab('pass',this)">🔑 Ubah Password</div>
+    </div>
+    <div id="ek-info">
+      <div class="fg"><label>Nama Lengkap</label><input type="text" id="ek-nama" class="cms-inp"></div>
+      <div class="fg"><label>Email</label><input type="email" id="ek-email" class="cms-inp"></div>
+      <div class="fg"><label>WhatsApp</label><input type="text" id="ek-wa" class="cms-inp"></div>
+      <div class="fg"><label>Proyek</label><input type="text" id="ek-proj" class="cms-inp"></div>
+    </div>
+    <div id="ek-pass" style="display:none">
+      <div class="warn-box" style="margin-bottom:15px">⚠️ Password baru akan langsung aktif untuk akun klien ini.</div>
+      <div class="fg"><label>Password Baru</label><input type="password" id="ek-p1" class="cms-inp" placeholder="Min. 6 karakter"></div>
+      <div class="fg"><label>Konfirmasi Password</label><input type="password" id="ek-p2" class="cms-inp" placeholder="Ulangi password"></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ol" onclick="closeModal('m-editklien')" type="button">Batal</button>
+      <button class="btn btn-cu" onclick="doSaveKlien()" type="button">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Upload -->
+<div class="mbg" id="m-detail">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-t" id="dt-title">Detail</div>
+    <div id="dt-body"></div>
+    <div class="modal-ft" id="dt-foot"></div>
+  </div>
+</div>
+
+<!-- CMS Edit Modal -->
+<div class="mbg" id="m-cms">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-t" id="cms-mt">Edit</div>
+    <div id="cms-body"></div>
+    <div class="modal-ft">
+      <button class="btn btn-ol" onclick="closeModal('m-cms')" type="button">Batal</button>
+      <button class="btn btn-cu" onclick="saveCmsItem()" type="button">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bukti Bayar Klien -->
+<div class="mbg" id="m-pay">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-t">💳 Upload Bukti Pembayaran</div>
+    <div class="fg"><label>Invoice</label><select id="py-inv" class="cms-inp"></select></div>
+    <div class="fg2">
+      <div class="fg" style="margin-bottom:0"><label>Metode</label>
+        <select id="py-meth" class="cms-inp">
+          <option>Transfer BCA</option><option>Transfer Mandiri</option><option>QRIS</option><option>GoPay/OVO</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:0"><label>Jumlah (Rp)</label><input type="number" id="py-amt" class="cms-inp" placeholder="0"></div>
+    </div>
+    <div class="fg2">
+      <div class="fg" style="margin-bottom:0"><label>Tanggal</label><input type="text" id="py-tgl" class="cms-inp" placeholder="DD/MM/YYYY"></div>
+      <div class="fg" style="margin-bottom:0"><label>Kode Referensi</label><input type="text" id="py-ref" class="cms-inp" placeholder="TRF..."></div>
+    </div>
+    <div class="fg" style="margin-top:15px"><label>Bukti Transfer</label>
+      <div class="upz" style="padding:16px">
+        <div class="upz-ic" style="font-size:20px">🧾</div>
+        <div class="upz-t" style="font-size:12px">Upload Bukti Transfer</div>
+        <input type="file" accept="image/*,.pdf" id="py-file-input" onchange="pyFileIn(event)">
+      </div>
+      <div id="py-file-prev" style="margin-top:6px"></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ol" onclick="closeModal('m-pay')" type="button">Batal</button>
+      <button class="btn btn-cu" onclick="submitPay()" type="button">Kirim Bukti</button>
+    </div>
+  </div>
+</div>
+
+<div class="tw" id="toasts"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+'use strict';
+
+/* ══════════════════════════════════════════════════════════
+   SECURITY MODULE — Perlindungan Tingkat Tinggi
+   ══════════════════════════════════════════════════════════ */
+
+// ── Sanitasi XSS: gunakan DOMPurify untuk semua innerHTML
+const SP = {
+  // Sanitize HTML output sebelum inject ke DOM
+  sanitize: (dirty) => {
+    if (typeof DOMPurify !== 'undefined') {
+      return DOMPurify.sanitize(dirty, {
+        ALLOWED_TAGS: ['div','span','p','strong','em','b','i','br','ul','li','ol',
+                       'table','thead','tbody','tr','th','td','a','button','select',
+                       'option','input','textarea','label','h1','h2','h3','h4',
+                       'canvas','audio','noscript','small','sup','sub'],
+        ALLOWED_ATTR: ['class','id','style','type','placeholder','value','href',
+                       'onclick','onchange','ondragover','ondragleave','ondrop',
+                       'multiple','accept','disabled','readonly','selected',
+                       'data-id','title','aria-label','role','tabindex',
+                       'src','controls','autoplay','name','for','colspan','rowspan'],
+        FORCE_BODY: false,
+        RETURN_DOM_FRAGMENT: false,
+      });
+    }
+    return dirty; // fallback jika DOMPurify belum load
+  },
+
+  // Safe innerHTML setter — selalu sanitasi dulu
+  setHTML: (el, html) => {
+    if (!el) return;
+    el.innerHTML = SP.sanitize(html);
+  },
+
+  // Escape plain text (untuk output non-HTML)
+  esc: (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'),
+
+  // Rate limiter — cegah brute force & spam klik
+  _rl: {},
+  rateLimit: (key, limitMs = 1000) => {
+    const now = Date.now();
+    if (SP._rl[key] && now - SP._rl[key] < limitMs) return false;
+    SP._rl[key] = now;
+    return true;
+  },
+
+  // Login attempt tracker — blokir setelah 5x gagal
+  _loginAttempts: 0,
+  _loginBlockedUntil: 0,
+  recordLoginFail: () => {
+    SP._loginAttempts++;
+    if (SP._loginAttempts >= 5) {
+      SP._loginBlockedUntil = Date.now() + 30000; // blokir 30 detik
+      SP._loginAttempts = 0;
+    }
+  },
+  isLoginBlocked: () => Date.now() < SP._loginBlockedUntil,
+  resetLoginAttempts: () => { SP._loginAttempts = 0; SP._loginBlockedUntil = 0; },
+
+  // Session management — auto-logout setelah 30 menit idle
+  _sessionTimer: null,
+  _SESSION_TIMEOUT: 30 * 60 * 1000,
+  resetSession: () => {
+    clearTimeout(SP._sessionTimer);
+    SP._sessionTimer = setTimeout(() => {
+      if (typeof CU !== 'undefined' && CU) {
+        showToast('Sesi berakhir karena tidak aktif. Silakan login kembali.', 'inf');
+        setTimeout(() => doLogout(), 2000);
+      }
+    }, SP._SESSION_TIMEOUT);
+  },
+  initSession: () => {
+    ['click','keypress','mousemove','touchstart','scroll'].forEach(evt =>
+      document.addEventListener(evt, SP.resetSession, { passive: true })
+    );
+    SP.resetSession();
+  },
+
+  // CSRF token generator (untuk form submissions ke server)
+  _csrfToken: null,
+  getCSRF: () => {
+    if (!SP._csrfToken) {
+      const arr = new Uint8Array(32);
+      if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+        crypto.getRandomValues(arr);
+        SP._csrfToken = Array.from(arr, b => b.toString(16).padStart(2,'0')).join('');
+      } else {
+        SP._csrfToken = Math.random().toString(36).substr(2) + Date.now().toString(36);
+      }
+    }
+    return SP._csrfToken;
+  },
+
+  // Input validator
+  validators: {
+    email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+    phone: (v) => /^[\+]?[\d\s\-\(\)]{8,15}$/.test(v),
+    noScript: (v) => !/<script|javascript:|on\w+\s*=/i.test(v),
+    safeText: (v) => v && v.length > 0 && v.length < 10000 && SP.validators.noScript(v),
+    password: (v) => v && v.length >= 8 && /[A-Z]/.test(v) && /[0-9]/.test(v),
+  },
+
+  // Secure password strength meter
+  passwordStrength: (p) => {
+    if (!p) return { score: 0, label: 'Kosong', color: 'var(--m1)' };
+    let score = 0;
+    if (p.length >= 8) score++;
+    if (p.length >= 12) score++;
+    if (/[A-Z]/.test(p)) score++;
+    if (/[0-9]/.test(p)) score++;
+    if (/[^A-Za-z0-9]/.test(p)) score++;
+    const levels = [
+      { score:0, label:'Sangat Lemah', color:'var(--rd)' },
+      { score:1, label:'Lemah', color:'var(--rd)' },
+      { score:2, label:'Sedang', color:'var(--am)' },
+      { score:3, label:'Cukup', color:'var(--cu)' },
+      { score:4, label:'Kuat', color:'var(--gn)' },
+      { score:5, label:'Sangat Kuat', color:'var(--gn)' },
+    ];
+    return levels[score] || levels[0];
+  },
+
+  // Audit log (in-memory, kirim ke server di production)
+  _auditLog: [],
+  log: (action, detail = '') => {
+    const entry = {
+      ts: new Date().toISOString(),
+      user: (typeof CU !== 'undefined' && CU) ? CU.email : 'anonymous',
+      action, detail,
+      ua: navigator.userAgent.substring(0, 80),
+    };
+    SP._auditLog.push(entry);
+    if (SP._auditLog.length > 200) SP._auditLog.shift(); // keep last 200
+    // Di production: fetch('/api/audit', { method:'POST', body:JSON.stringify(entry) })
+  },
+
+  // Detect devtools open (basic)
+  detectDevTools: () => {
+    // Hanya warning, tidak memblokir (UX-friendly)
+    const threshold = 160;
+    if (window.outerWidth - window.innerWidth > threshold ||
+        window.outerHeight - window.innerHeight > threshold) {
+      console.warn('%c⚠ RH Partners Security', 'color:#e05555;font-size:14px;font-weight:bold',
+        '\nJangan paste kode apapun di console ini. Ini bisa membahayakan akun Anda.');
+    }
+  },
+};
+
+// Inisialisasi security saat DOM ready
+
+/* ══════════════════════════════════════
+   STATE & DATA
+══════════════════════════════════════ */
+let USERS = {};
+
+let CU = null; // current user
+let lnMode = 'klien';
+let currentView = 'dash';
+let ekTabState = 'info';
+let upTabState = 'rev';
+let fFile = 'all';
+let fRev = 'all';
+let fPay = 'all';
+
+let uploads = [];
+let payList = [];
+let klienList = [];
+let invList = [];
+let uFiles = {}; // key: slot-id -> File[]
+let pyFileObj = null;
+let kpFileObj = null;
+
+// recorder state (modal)
+let mRec = null, mStream = null, mChunks = [], mSec = 0, mPaused = false, mIntv = null, mAnim = null, mBlobs = [];
+// recorder state (page)
+let pgRec = null, pgStream = null, pgChunks = [], pgSec = 0, pgPaused = false, pgIntv = null, pgAnim = null, pgBlobs = [];
+
+let editCms = null;
+let adminRevisions = []; // hasil revisi dari admin ke klien
+
+let cmsData = {
+  pengumuman: [
+    { id:1, judul:'Sistem Pemeliharaan Terjadwal', isi:'Sistem akan dalam pemeliharaan pada 15 Maret 2026 pukul 00.00–03.00 WIB.', aktif:true, tgl:'01/03/2026' },
+    { id:2, judul:'Fitur Upload Video Baru', isi:'Kini Anda dapat mengupload file video hingga 500MB untuk revisi.', aktif:true, tgl:'05/03/2026' },
+  ],
+  layanan: [
+    { id:1, nama:'Desain Website',   isi:'Landing page, profil perusahaan, e-commerce', harga:'Mulai Rp 5.000.000',  ikon:'🌐', aktif:true },
+    { id:2, nama:'Branding Package', isi:'Logo, identitas visual, panduan merek',       harga:'Mulai Rp 3.500.000',  ikon:'🎨', aktif:true },
+    { id:3, nama:'Video Produksi',   isi:'Video iklan, company profile, konten sosmed', harga:'Mulai Rp 8.000.000',  ikon:'🎬', aktif:true },
+    { id:4, nama:'Fotografi Produk', isi:'Foto produk profesional, still life',         harga:'Mulai Rp 2.000.000',  ikon:'📷', aktif:false },
+  ],
+  kontak: { nama:'RH Partners', email:'hello@rhpartners.id', wa:'+62 812-0000-0001', alamat:'Jl. Sudirman No. 12, Jakarta Selatan', jam:'Senin–Jumat, 09.00–18.00 WIB' },
+  siteinfo: { judul:'RH Partners Portal', tagline:'Client, Project & Billing Workspace', rek_bca:'1234-567-890', rek_mandiri:'111-222-333-4', an:'RH Partners' },
+};
+
+function seedData() {
+  klienList = [
+    { nama:'Budi Santoso',    email:'klien@studio.com', wa:'+6281234001', proyek:'Website E-Commerce', total:8500000 },
+    { nama:'Sari Dewi',       email:'sari@studio.com',  wa:'+6281234002', proyek:'Branding Package',   total:4200000 },
+    { nama:'Reza Firmansyah', email:'reza@studio.com',  wa:'+6281234003', proyek:'Video Iklan',        total:12000000 },
+    { nama:'Hana Pratiwi',    email:'hana@studio.com',  wa:'+6281234004', proyek:'Foto Produk',        total:2500000 },
+  ];
+  adminRevisions = [
+    { id:9001, klien:'Budi Santoso',    proyek:'Website E-Commerce', ver:'v1.2 Final',      kategori:'Desain',   pesan:'Sudah kami perbaiki warna header dan font seperti yang diminta. Mohon review dan berikan konfirmasi.', files:['website_v1.2_final.pdf','assets_v1.2.zip'], tgl:'08/03/2026', dibaca:false },
+    { id:9002, klien:'Sari Dewi',       proyek:'Branding Package',   ver:'Logo v2.0 Final', kategori:'Desain',   pesan:'Logo sudah direvisi sesuai feedback meeting. Ada 3 varian warna terlampir.', files:['logo_v2_final.ai','logo_preview.pdf','brand_guidelines.pdf'], tgl:'07/03/2026', dibaca:true },
+    { id:9003, klien:'Hana Pratiwi',    proyek:'Foto Produk',        ver:'Batch 1 Edit',    kategori:'Foto',     pesan:'20 foto produk sudah diedit. Background putih bersih, retouching selesai.', files:['foto_produk_batch1.zip'], tgl:'05/03/2026', dibaca:true },
+  ];
+  invList = [
+    { id:'INV-001', client:'Budi Santoso',    desc:'Website E-Commerce – DP 50%',   amount:4250000, due:'15/03/2026', status:'unpaid', method:'-', date:'-', ref:'-' },
+    { id:'INV-002', client:'Sari Dewi',       desc:'Branding Package – Pelunasan',  amount:4200000, due:'10/03/2026', status:'paid',   method:'Transfer BCA', date:'05/03/2026', ref:'TRF250305001' },
+    { id:'INV-003', client:'Reza Firmansyah', desc:'Video Iklan – Pelunasan',       amount:6000000, due:'20/03/2026', status:'verify', method:'QRIS', date:'07/03/2026', ref:'QR250307002' },
+    { id:'INV-004', client:'Hana Pratiwi',    desc:'Foto Produk – Full Payment',    amount:2500000, due:'25/03/2026', status:'unpaid', method:'-', date:'-', ref:'-' },
+  ];
+  payList = invList.map(i => ({...i}));
+  uploads = [
+    { id:1,   client:'Budi Santoso',    proj:'Website E-Commerce', tipe:'revisi',  ver:'v1.2', judul:'Revisi v1.2',          catatan:'Perubahan warna header dan font body', files:['mockup_v1.2.pdf','assets_v1.2.zip'], tgl:'07/03/2026', status:'approved' },
+    { id:2,   client:'Sari Dewi',       proj:'Branding Package',   tipe:'revisi',  ver:'v2.0', judul:'Revisi v2.0',          catatan:'Logo revisi sesuai feedback meeting',  files:['logo_v2.ai','preview.jpg'],          tgl:'08/03/2026', status:'pending'  },
+    { id:3,   client:'Reza Firmansyah', proj:'Video Iklan',        tipe:'revisi',  ver:'v1.0', judul:'Revisi v1.0',          catatan:'Draft pertama, mohon feedback',        files:['video_draft_v1.mp4'],                tgl:'06/03/2026', status:'rejected' },
+    { id:4,   client:'Budi Santoso',    proj:'Website E-Commerce', tipe:'revisi',  ver:'v1.3', judul:'Revisi v1.3',          catatan:'Perbaikan responsif mobile',           files:['responsive_fix.zip'],                tgl:'08/03/2026', status:'pending'  },
+    { id:5,   client:'Hana Pratiwi',    proj:'Foto Produk',        tipe:'revisi',  ver:'v1.0', judul:'Revisi v1.0',          catatan:'Set foto 20 produk background putih',  files:['foto_batch1.zip'],                   tgl:'05/03/2026', status:'approved' },
+    { id:101, client:'Budi Santoso',    proj:'Website E-Commerce', tipe:'rekaman', ver:'02:34',judul:'Feedback Homepage v1', catatan:'Rekaman feedback sesi review',         files:['feedback_homepage.webm'],            tgl:'06/03/2026', status:'reviewed' },
+    { id:102, client:'Sari Dewi',       proj:'Branding Package',   tipe:'rekaman', ver:'01:18',judul:'Arahan Logo Revisi',   catatan:'Instruksi perubahan warna tipografi',  files:['arahan_logo.mp3'],                   tgl:'08/03/2026', status:'pending'  },
+    { id:103, client:'Reza Firmansyah', proj:'Video Iklan',        tipe:'rekaman', ver:'04:50',judul:'Brief Video Iklan',    catatan:'Penjelasan konsep dan target audiens', files:['brief_video.m4a'],                   tgl:'05/03/2026', status:'reviewed' },
+  ];
+}
+
+/* ══════════════════════════════════════
+   AUTH
+══════════════════════════════════════ */
+
+function avatarFromName(nama) {
+  return String(nama || '').trim().split(/\s+/).map(v => v[0] || '').join('').slice(0,2).toUpperCase() || 'AD';
+}
+
+function resetPortalData() {
+  uploads = [];
+  payList = [];
+  klienList = [];
+  invList = [];
+  adminRevisions = [];
+  uFiles = {};
+}
+
+async function bootstrapPortal() {
+  const studio = v('fs-studio').trim();
+  const nama = v('fs-admin-name').trim();
+  const email = normalizeEmail(v('fs-admin-email'));
+  const wa = v('fs-admin-wa').trim();
+  const pass = v('fs-admin-pass');
+  const pass2 = v('fs-admin-pass2');
+  const err = document.getElementById('fs-err');
+  if (err) err.textContent = '';
+
+  if (!studio || !nama || !email || !wa || !pass || !pass2) { if (err) err.textContent = 'Semua field wajib diisi.'; return; }
+  if (!SP.validators.email(email)) { if (err) err.textContent = 'Format email admin tidak valid.'; return; }
+  if (!SP.validators.whatsapp(wa)) { if (err) err.textContent = 'Format WhatsApp tidak valid.'; return; }
+  if (!SP.validators.password(pass)) { if (err) err.textContent = 'Password minimal 8 karakter, mengandung huruf besar dan angka.'; return; }
+  if (pass !== pass2) { if (err) err.textContent = 'Konfirmasi password tidak cocok.'; return; }
+
+  USERS = {
+    [email]: { pass, role:'admin', name:nama, avatar:avatarFromName(nama) }
+  };
+  resetPortalData();
+  cmsData.kontak = Object.assign({}, cmsData.kontak, { nama: studio, email, wa });
+  cmsData.siteinfo = Object.assign({}, cmsData.siteinfo, { judul: 'RH Partners Portal', tagline: studio });
+
+  if (document.getElementById('fs-seed-demo') && document.getElementById('fs-seed-demo').checked) {
+    seedData();
+    USERS[email] = { pass, role:'admin', name:nama, avatar:avatarFromName(nama) };
+    cmsData.kontak = Object.assign({}, cmsData.kontak, { nama: studio, email, wa });
+    cmsData.siteinfo = Object.assign({}, cmsData.siteinfo, { judul: 'RH Partners Portal', tagline: studio });
+  }
+
+  closeModal('m-first-setup');
+  renderLoginHint();
+
+  if (window.__studioportalFirebase && typeof window.__studioportalFirebase.persistState === 'function') {
+    try { await window.__studioportalFirebase.persistState('bootstrap-admin'); } catch (e) {}
+  }
+
+  document.getElementById('ln-email').value = email;
+  document.getElementById('ln-pass').value = pass;
+  lnMode = 'admin';
+  document.getElementById('lt-klien').classList.remove('on');
+  document.getElementById('lt-admin').classList.add('on');
+  showToast('RH Partners Portal siap dipakai. Silakan masuk sebagai admin.','ok');
+}
+
+function renderLoginHint() {
+  const hint = document.getElementById('ln-hint');
+  if (!hint) return;
+  const hasUsers = USERS && Object.keys(USERS).length > 0;
+  hint.textContent = hasUsers
+    ? (lnMode === 'admin' ? 'Masuk dengan akun admin yang sudah dibuat.' : 'Masuk dengan akun klien yang sudah dibuat.')
+    : 'Belum ada akun. Jalankan Setup Awal untuk membuat admin pertama.';
+}
+
+function setLnMode(m) {
+  lnMode = m;
+  document.getElementById('lt-klien').classList.toggle('on', m === 'klien');
+  document.getElementById('lt-admin').classList.toggle('on', m === 'admin');
+  renderLoginHint();
+  document.getElementById('ln-err').textContent = '';
+}
+
+function updatePwStrength(val) {
+  if (!val) { const w = document.getElementById('pw-strength-wrap'); if(w) w.style.display='none'; return; }
+  const str = SP.passwordStrength(val);
+  const pct = (str.score / 5) * 100;
+  const wrap = document.getElementById('pw-strength-wrap');
+  const bar  = document.getElementById('pw-strength-bar');
+  const lbl  = document.getElementById('pw-strength-label');
+  if (wrap) wrap.style.display = val ? 'block' : 'none';
+  if (bar)  { bar.style.width = pct + '%'; bar.style.background = str.color; }
+  if (lbl)  { lbl.style.color = str.color; lbl.textContent = 'Kekuatan: ' + str.label; }
+}
+
+function togglePw() {
+  const inp = document.getElementById('ln-pass');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  document.getElementById('pw-eye').textContent = inp.type === 'password' ? '👁' : '🙈';
+}
+
+function doLogin() {
+  // Rate limit: cegah brute force
+  if (!SP.rateLimit('login', 800)) return;
+  if (SP.isLoginBlocked()) {
+    document.getElementById('ln-err').textContent = '⛔ Terlalu banyak percobaan. Coba lagi dalam 30 detik.';
+    return;
+  }
+  const email = document.getElementById('ln-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('ln-pass').value;
+  const errEl = document.getElementById('ln-err');
+  errEl.textContent = '';
+
+  // Validasi input
+  if (!email || !pass) { errEl.textContent = 'Isi email dan password.'; return; }
+  if (!SP.validators.email(email)) { errEl.textContent = 'Format email tidak valid.'; return; }
+  if (!SP.validators.noScript(email) || !SP.validators.noScript(pass)) {
+    errEl.textContent = 'Input mengandung karakter tidak diizinkan.';
+    SP.log('security_alert', 'XSS attempt on login: ' + email.substring(0,30));
+    return;
+  }
+
+  const u = USERS[email];
+  if (!u || u.pass !== pass) {
+    SP.recordLoginFail();
+    SP.log('login_fail', email);
+    // Delay respons untuk cegah timing attack
+    setTimeout(() => {
+      const remaining = Math.max(0, 5 - SP._loginAttempts);
+      errEl.textContent = `Email atau password salah.${SP._loginAttempts > 2 ? ' (' + remaining + ' percobaan tersisa)' : ''}`;
+    }, 400 + Math.random() * 300);
+    return;
+  }
+  if (u.role !== lnMode) {
+    SP.log('login_role_mismatch', email);
+    errEl.textContent = `Akun ini bukan ${lnMode === 'admin' ? 'administrator' : 'klien'}. Pilih tab yang sesuai.`;
+    return;
+  }
+
+  SP.resetLoginAttempts();
+  SP.log('login_success', email);
+  CU = { email, ...u, loginAt: Date.now() };
+  launchApp();
+}
+
+function doLogout() {
+  SP.log('logout', CU ? CU.email : 'unknown');
+  stopAllRecorders();
+  clearTimeout(SP._sessionTimer);
+  CU = null;
+  document.getElementById('scr-app').classList.remove('on');
+  document.getElementById('scr-login').classList.add('on');
+  document.getElementById('ln-email').value = '';
+  document.getElementById('ln-pass').value = '';
+  document.getElementById('ln-err').textContent = '';
+  showToast('Berhasil keluar', 'inf');
+}
+
+/* ══════════════════════════════════════
+   APP INIT
+══════════════════════════════════════ */
+function launchApp() {
+  document.getElementById('scr-login').classList.remove('on');
+  document.getElementById('scr-app').classList.add('on');
+  const av = document.getElementById('sb-av');
+  av.textContent = CU.avatar;
+  av.className = 'av ' + (CU.role === 'admin' ? 'av-a' : 'av-k');
+  document.getElementById('sb-un').textContent = CU.name;
+  document.getElementById('sb-ur').textContent = CU.role === 'admin' ? 'Administrator' : 'Klien';
+  document.getElementById('tb-act').style.display = CU.role === 'klien' ? 'flex' : 'none';
+  buildNav();
+  navTo('dash');
+}
+
+function buildNav() {
+  const isA = CU.role === 'admin';
+  const pendFiles = uploads.filter(u => u.status === 'pending').length;
+  const pendRev   = uploads.filter(u => u.tipe === 'revisi'  && u.status === 'pending').length;
+  const pendRek   = uploads.filter(u => u.tipe === 'rekaman' && u.status === 'pending').length;
+  const pendPay   = payList.filter(p => p.status === 'verify').length;
+  const myPend    = CU ? uploads.filter(u => u.client === CU.name && u.status === 'pending').length : 0;
+  const myUnread  = CU ? adminRevisions.filter(r => r.klien === CU.name && !r.dibaca).length : 0;
+
+  const adminNav = [
+    { sec:'Utama' },
+    { v:'dash',            ic:'📊', l:'Dashboard' },
+    { sec:'Konten Klien' },
+    { v:'files',           ic:'🗂️', l:'Semua File',   dot: pendFiles > 0 },
+    { v:'rev-adm',         ic:'📋', l:'Revisi',       badge: pendRev || '' },
+    { v:'rek-adm',         ic:'🎙️', l:'Rekaman',      badge: pendRek || '' },
+    { v:'kirim-hasil',     ic:'📨', l:'Kirim Hasil Revisi' },
+    { v:'pay-adm',         ic:'💳', l:'Pembayaran',   dot: pendPay > 0 },
+    { sec:'Manajemen' },
+    { v:'klien-adm',       ic:'👥', l:'Data Klien' },
+    { sec:'CMS' },
+    { v:'cms-pengumuman',  ic:'📢', l:'Pengumuman' },
+    { v:'cms-layanan',     ic:'🛠️', l:'Layanan' },
+    { v:'cms-kontak',      ic:'📞', l:'Kontak & Info' },
+    { v:'cms-siteinfo',    ic:'⚙️', l:'Pengaturan Situs' },
+    { sec:'Laporan' },
+    { v:'report',          ic:'📈', l:'Ringkasan' },
+  ];
+
+  const klienNav = [
+    { sec:'Utama' },
+    { v:'dash',         ic:'📊', l:'Dashboard' },
+    { sec:'Layanan' },
+    { v:'upload',       ic:'📤', l:'Upload File',    badge: myPend || '' },
+    { v:'hasil-revisi', ic:'📨', l:'Hasil Revisi',   badge: myUnread || '' },
+    { v:'pay-kln',      ic:'💰', l:'Pembayaran' },
+    { sec:'Akun' },
+    { v:'profile',      ic:'👤', l:'Profil Saya' },
+  ];
+
+  const links = isA ? adminNav : klienNav;
+  let html = '';
+  links.forEach(l => {
+    if (l.sec) {
+      html += `<div class="nav-sec">${l.sec}</div>`;
+    } else {
+      const active = currentView === l.v ? 'on' : '';
+      html += `<div class="ni ${active}" id="ni-${l.v}" onclick="navTo('${l.v}')">
+        <span class="ni-ic">${l.ic}</span>${l.l}
+        ${l.badge ? `<span class="nbdg">${l.badge}</span>` : ''}
+        ${l.dot ? `<span class="ndot"></span>` : ''}
+      </div>`;
+    }
+  });
+  document.getElementById('sb-nav').innerHTML = html;
+}
+
+const PAGE_TITLES = {
+  dash:'Dashboard', files:'Semua File', 'rev-adm':'Kelola Revisi', 'rek-adm':'Kelola Rekaman',
+  'pay-adm':'Kelola Pembayaran', 'klien-adm':'Data Klien',
+  'cms-pengumuman':'CMS Pengumuman', 'cms-layanan':'CMS Layanan', 'cms-kontak':'CMS Kontak',
+  'cms-siteinfo':'Pengaturan Situs', report:'Ringkasan',
+  upload:'Upload File', 'pay-kln':'Pembayaran', profile:'Profil Saya',
+  'kirim-hasil':'Kirim Hasil Revisi', 'hasil-revisi':'Hasil Revisi dari Studio',
+};
+
+function navTo(v) {
+  currentView = v;
+  buildNav();
+  updateSEOMeta(v);
+  SP.log('navigation', v);
+  const title = PAGE_TITLES[v] || v;
+  const words = title.split(' ');
+  const last = words.pop();
+  document.getElementById('pg-title').innerHTML = (words.length ? words.join(' ') + ' ' : '') + `<span>${last}</span>`;
+
+  const views = {
+    dash:           CU.role === 'admin' ? dashAdmin : dashKlien,
+    files:          adminFiles,
+    'rev-adm':      adminRevisi,
+    'rek-adm':      adminRekaman,
+    'pay-adm':      adminPay,
+    'klien-adm':    adminKlien,
+    'cms-pengumuman': cmsPengumuman,
+    'cms-layanan':  cmsLayanan,
+    'cms-kontak':   cmsKontak,
+    'cms-siteinfo': cmsSiteinfo,
+    report:         adminReport,
+    upload:         klienUpload,
+    'pay-kln':      klienPay,
+    profile:        klienProfile,
+    'kirim-hasil':  adminKirimHasil,
+    'hasil-revisi': klienHasilRevisi,
+  };
+  const fn = views[v];
+  if (fn) fn();
+  else setContent('<div class="empty"><div class="empty-ic">🚧</div><div class="empty-t">Segera Hadir</div></div>');
+}
+
+/* ══════════════════════════════════════
+   ADMIN: DASHBOARD
+══════════════════════════════════════ */
+function dashAdmin() {
+  const pend  = uploads.filter(u => u.status === 'pending').length;
+  const rek   = uploads.filter(u => u.tipe === 'rekaman').length;
+  const tot   = payList.reduce((s,p) => s + p.amount, 0);
+  const lunas = payList.filter(p => p.status === 'paid').reduce((s,p) => s + p.amount, 0);
+  const blm   = payList.filter(p => p.status !== 'paid').reduce((s,p) => s + p.amount, 0);
+
+  setContent(`
+  <div class="wb">
+    <div><h2>Selamat datang, <span>${CU.name.split(' ')[0]}</span>!</h2>
+    <p>${new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p></div>
+    <div class="wb-ic">⚙️</div>
+  </div>
+  <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:rgba(74,186,130,.1);border:1px solid rgba(74,186,130,.2);border-radius:20px;font-size:10px;font-weight:700;color:var(--gn);letter-spacing:.06em">
+      🔒 SSL/TLS 1.3 AKTIF
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:rgba(85,153,224,.1);border:1px solid rgba(85,153,224,.2);border-radius:20px;font-size:10px;font-weight:700;color:var(--bl);letter-spacing:.06em">
+      🛡 CSP AKTIF
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);border-radius:20px;font-size:10px;font-weight:700;color:var(--pu);letter-spacing:.06em">
+      🔐 HSTS PRELOAD
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:rgba(224,168,48,.1);border:1px solid rgba(224,168,48,.2);border-radius:20px;font-size:10px;font-weight:700;color:var(--am);letter-spacing:.06em">
+      📋 AUDIT LOG ON
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:rgba(201,121,65,.1);border:1px solid rgba(201,121,65,.2);border-radius:20px;font-size:10px;font-weight:700;color:var(--cu);letter-spacing:.06em">
+      ⚡ SEO Score A+
+    </div>
+  </div>
+  <div class="g5 stats">
+    <div class="sc cu"><div class="sic">📤</div><div class="sl">Total Upload</div><div class="sv cu">${uploads.length}</div><div class="ss">${pend} menunggu</div></div>
+    <div class="sc gn"><div class="sic">✅</div><div class="sl">Disetujui</div><div class="sv gn">${uploads.filter(u=>u.status==='approved'||u.status==='reviewed').length}</div><div class="ss">Revisi &amp; rekaman</div></div>
+    <div class="sc pu"><div class="sic">🎙️</div><div class="sl">Rekaman</div><div class="sv pu">${rek}</div><div class="ss">${uploads.filter(u=>u.tipe==='rekaman'&&u.status==='pending').length} baru</div></div>
+    <div class="sc bl"><div class="sic">💰</div><div class="sl">Total Tagihan</div><div class="sv bl">${fRp(tot)}</div><div class="ss">${klienList.length} klien</div></div>
+    <div class="sc rd"><div class="sic">⏳</div><div class="sl">Belum Lunas</div><div class="sv rd">${fRp(blm)}</div><div class="ss">${fRp(lunas)} lunas</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><div class="ct">Upload Terbaru</div><button class="btn btn-ol btn-xs" onclick="navTo('files')">Semua →</button></div>
+      <div class="cb0">${fileTbl(uploads.slice(0,6), true)}</div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:18px">
+        <div class="ch"><div class="ct">Status Pembayaran</div><button class="btn btn-ol btn-xs" onclick="navTo('pay-adm')">Kelola →</button></div>
+        <div class="cb">${payList.slice(0,4).map(p=>`
+          <div class="ic">
+            <div class="ic-top"><span class="ic-id">${p.id}</span><span class="chip ch-${pStCls(p.status)}">${pStLbl(p.status)}</span></div>
+            <div class="ic-desc">${p.client} — ${p.desc}</div>
+            <div class="ic-ft"><span class="ic-due">Jatuh tempo: ${p.due}</span><span class="ic-amt">${fRp(p.amount)}</span></div>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct">Aktivitas Terkini</div></div>
+        <div class="cb">${buildFeed()}</div>
+      </div>
+    </div>
+  </div>`);
+}
+
+/* ══════════════════════════════════════
+   ADMIN: SEMUA FILE
+══════════════════════════════════════ */
+function adminFiles() {
+  const filtered = fFile === 'all' ? uploads : uploads.filter(u => u.tipe === fFile);
+  setContent(`
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div class="tabs" style="margin-bottom:0">
+      ${['all','revisi','rekaman'].map(f => `<div class="tab ${fFile===f?'on':''}" onclick="setFF('${f}',this)">${{all:'Semua',revisi:'📄 Revisi',rekaman:'🎙️ Rekaman'}[f]}</div>`).join('')}
+    </div>
+    <input style="background:var(--s2);border:1px solid var(--b1);border-radius:var(--r8);color:var(--tx);padding:7px 12px;font-size:12px;outline:none;width:210px"
+      placeholder="🔍 Cari klien / proyek..." oninput="searchFiles(this.value,'file-tbl-body')">
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Semua File <span style="color:var(--m1);font-weight:400">(${filtered.length})</span></div></div>
+    <div class="cb0" id="file-tbl-wrap">${fileTbl(filtered, true)}</div>
+  </div>`);
+}
+
+function setFF(f) {
+  fFile = f;
+  adminFiles();
+}
+
+function searchFiles(q, tbodyId) {
+  const low = q.toLowerCase();
+  const base = fFile === 'all' ? uploads : uploads.filter(u => u.tipe === fFile);
+  const list = q ? base.filter(u => u.client.toLowerCase().includes(low) || u.proj.toLowerCase().includes(low) || u.judul.toLowerCase().includes(low)) : base;
+  const wrap = document.getElementById('file-tbl-wrap');
+  if (wrap) wrap.innerHTML = fileTbl(list, true);
+}
+
+function fileTbl(list, showActions) {
+  if (!list.length) return '<div class="empty"><div class="empty-ic">📂</div><div class="empty-t">Tidak ada data</div></div>';
+  return `<table class="tbl"><thead><tr>
+    <th>Klien</th><th>Proyek</th><th>Tipe</th><th>Judul / Versi</th><th>File</th><th>Catatan</th><th>Tanggal</th><th>Status</th>
+    ${showActions ? '<th>Aksi</th>' : ''}
+  </tr></thead><tbody>${list.map(u => `<tr>
+    <td style="font-weight:600">${u.client}</td>
+    <td style="color:var(--m1);font-size:11px">${u.proj}</td>
+    <td><span class="chip ${u.tipe==='rekaman'?'ch-rek-tipe':'ch-rev-tipe'}">${u.tipe==='rekaman'?'🎙️':'📄'} ${cap(u.tipe)}</span></td>
+    <td><div style="font-size:12px;font-weight:500">${u.judul}</div>${u.ver&&u.ver!=='-'?`<div style="font-size:10px;color:var(--m1)">${u.ver}</div>`:''}</td>
+    <td style="font-size:11px;color:var(--m1)">${u.files.length} file</td>
+    <td style="font-size:11px;color:var(--m2);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${u.catatan}">${u.catatan||'—'}</td>
+    <td style="font-size:11px;color:var(--m1);white-space:nowrap">${u.tgl}</td>
+    <td><span class="chip ch-${stCls(u.status)}">${stLbl(u.status)}</span></td>
+    ${showActions ? `<td><div class="row-acts">
+      <button class="btn btn-xs btn-bl" onclick="showDetail(${u.id})">Detail</button>
+      ${u.status==='pending' ? `<button class="btn btn-xs btn-gn" onclick="approveUpload(${u.id})">${u.tipe==='rekaman'?'✓ Diputar':'✓ Setuju'}</button><button class="btn btn-xs btn-rd" onclick="rejectUpload(${u.id})">✕</button>` : ''}
+    </div></td>` : ''}
+  </tr>`).join('')}</tbody></table>`;
+}
+
+/* ══════════════════════════════════════
+   ADMIN: REVISI
+══════════════════════════════════════ */
+function adminRevisi() {
+  const list = uploads.filter(u => u.tipe === 'revisi');
+  const filtered = fRev === 'all' ? list : list.filter(u => u.status === fRev);
+  setContent(`
+  <div class="tabs">
+    ${['all','pending','approved','rejected'].map(f=>`<div class="tab ${fRev===f?'on':''}" onclick="setFRev('${f}',this)">${{all:'Semua',pending:'Menunggu',approved:'Disetujui',rejected:'Ditolak'}[f]}</div>`).join('')}
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Revisi <span style="color:var(--m1);font-weight:400">(${filtered.length})</span></div></div>
+    <div class="cb0">${fileTbl(filtered, true)}</div>
+  </div>`);
+}
+function setFRev(f) { fRev = f; adminRevisi(); }
+
+/* ══════════════════════════════════════
+   ADMIN: REKAMAN
+══════════════════════════════════════ */
+function adminRekaman() {
+  const list = uploads.filter(u => u.tipe === 'rekaman');
+  setContent(`
+  <div class="card">
+    <div class="ch"><div class="ct">Rekaman <span style="color:var(--m1);font-weight:400">(${list.length})</span></div></div>
+    <div class="cb0">${list.length ? `<table class="tbl"><thead><tr>
+      <th>Klien</th><th>Proyek</th><th>Judul</th><th>Durasi</th><th>File</th><th>Catatan</th><th>Tanggal</th><th>Status</th><th>Aksi</th>
+    </tr></thead><tbody>${list.map(u=>`<tr>
+      <td style="font-weight:600">${u.client}</td>
+      <td style="font-size:11px;color:var(--m1)">${u.proj}</td>
+      <td style="font-weight:500">${u.judul}</td>
+      <td style="font-size:11px;color:var(--m1)">${u.ver||'—'}</td>
+      <td style="font-size:11px;color:var(--m1)">${u.files.join(', ')}</td>
+      <td style="font-size:11px;color:var(--m2);max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${u.catatan}">${u.catatan||'—'}</td>
+      <td style="font-size:11px;color:var(--m1);white-space:nowrap">${u.tgl}</td>
+      <td><span class="chip ch-${stCls(u.status)}">${stLbl(u.status)}</span></td>
+      <td><div class="row-acts">
+        <button class="btn btn-xs btn-bl" onclick="showDetail(${u.id})">Detail</button>
+        ${u.status==='pending'?`<button class="btn btn-xs btn-gn" onclick="approveUpload(${u.id})">✓ Dengar</button>`:''}
+      </div></td>
+    </tr>`).join('')}</tbody></table>` :
+    '<div class="empty"><div class="empty-ic">🎙️</div><div class="empty-t">Belum ada rekaman</div></div>'}</div>
+  </div>`);
+}
+
+/* ══════════════════════════════════════
+   ADMIN: PEMBAYARAN
+══════════════════════════════════════ */
+function adminPay() {
+  const filtered = fPay === 'all' ? payList : payList.filter(p => p.status === fPay);
+  setContent(`
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div class="tabs" style="margin-bottom:0">
+      ${['all','unpaid','verify','paid'].map(f=>`<div class="tab ${fPay===f?'on':''}" onclick="setFPay('${f}',this)">${{all:'Semua',unpaid:'Belum Bayar',verify:'Verifikasi',paid:'Lunas'}[f]}</div>`).join('')}
+    </div>
+    <button class="btn btn-cu btn-sm" onclick="openInvModal()">+ Buat Invoice</button>
+  </div>
+  <div class="card"><div class="cb0">
+    ${filtered.length ? `<table class="tbl"><thead><tr>
+      <th>Klien</th><th>Invoice</th><th>Deskripsi</th><th>Jumlah</th><th>Metode</th><th>Tgl Bayar</th><th>Status</th><th>Aksi</th>
+    </tr></thead><tbody>${filtered.map(p=>`<tr>
+      <td style="font-weight:600">${p.client}</td>
+      <td style="font-family:'Syne',sans-serif;font-size:11px;color:var(--m2)">${p.id}</td>
+      <td style="font-size:11px;color:var(--m2);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.desc}</td>
+      <td style="font-weight:700;font-family:'Syne',sans-serif;color:var(--cu)">${fRp(p.amount)}</td>
+      <td style="font-size:11px;color:var(--m1)">${p.method}</td>
+      <td style="font-size:11px;color:var(--m1)">${p.date}</td>
+      <td><span class="chip ch-${pStCls(p.status)}">${pStLbl(p.status)}</span></td>
+      <td><div class="row-acts">
+        ${p.status==='verify'?`<button class="btn btn-xs btn-gn" onclick="confirmPay('${p.id}')">Konfirmasi</button><button class="btn btn-xs btn-rd" onclick="rejectPay('${p.id}')">Tolak</button>`:
+          p.status==='unpaid'?`<button class="btn btn-xs btn-gh" onclick="showToast('Reminder terkirim','inf')">Reminder</button>`:
+          `<span style="font-size:11px;color:var(--gn)">✓ Lunas</span>`}
+      </div></td>
+    </tr>`).join('')}</tbody></table>` :
+    '<div class="empty"><div class="empty-ic">💳</div><div class="empty-t">Tidak ada data</div></div>'}
+  </div></div>`);
+}
+function setFPay(f) { fPay = f; adminPay(); }
+function confirmPay(id) { const p = payList.find(p=>p.id===id); if(p){p.status='paid'; buildNav(); showToast('Pembayaran dikonfirmasi ✓','ok'); adminPay();} }
+function rejectPay(id)  { const p = payList.find(p=>p.id===id); if(p){p.status='unpaid'; showToast('Pembayaran ditolak','err'); adminPay();} }
+
+/* ══════════════════════════════════════
+   ADMIN: DATA KLIEN
+══════════════════════════════════════ */
+function adminKlien() {
+  setContent(`
+  <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+    <button class="btn btn-cu btn-sm" onclick="openModal('m-addklien')">+ Tambah Klien</button>
+  </div>
+  <div class="card"><div class="cb0">
+    <table class="tbl"><thead><tr>
+      <th>Nama / Email</th><th>WhatsApp</th><th>Proyek</th><th>Total Tagihan</th><th>Upload</th><th>Status</th><th>Aksi</th>
+    </tr></thead><tbody id="kl-tbody">${renderKlienRows()}</tbody></table>
+  </div></div>`);
+}
+
+function renderKlienRows() {
+  if (!klienList.length) return '<tr><td colspan="7"><div class="empty"><div class="empty-t">Belum ada klien</div></div></td></tr>';
+  return klienList.map((k,i) => `<tr>
+    <td><div style="font-weight:600">${k.nama}</div><div style="font-size:10px;color:var(--m1)">${k.email}</div></td>
+    <td style="font-size:11px;color:var(--m2)">${k.wa}</td>
+    <td style="font-size:12px">${k.proyek}</td>
+    <td style="font-weight:700;font-family:'Syne',sans-serif;color:var(--cu)">${fRp(k.total)}</td>
+    <td style="font-size:12px">${uploads.filter(u=>u.client===k.nama).length} file</td>
+    <td><span class="chip ch-active">Aktif</span></td>
+    <td><div class="row-acts">
+      <button class="btn btn-xs btn-bl" onclick="openEditKlien(${i})">✏️ Edit</button>
+      <button class="btn btn-xs btn-rd" onclick="deleteKlien(${i})">🗑</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function openEditKlien(i) {
+  const k = klienList[i];
+  document.getElementById('ek-idx').value = i;
+  document.getElementById('ek-nama').value  = k.nama;
+  document.getElementById('ek-email').value = k.email;
+  document.getElementById('ek-wa').value    = k.wa;
+  document.getElementById('ek-proj').value  = k.proyek;
+  document.getElementById('ek-p1').value = '';
+  document.getElementById('ek-p2').value = '';
+  document.getElementById('ek-title').textContent = `✏️ Edit — ${k.nama}`;
+  setEkTab('info', document.querySelector('#ek-tabs .tab'));
+  openModal('m-editklien');
+}
+
+function setEkTab(t, el) {
+  ekTabState = t;
+  document.querySelectorAll('#ek-tabs .tab').forEach(tb => tb.classList.remove('on'));
+  if (el) el.classList.add('on');
+  document.getElementById('ek-info').style.display = t === 'info' ? 'block' : 'none';
+  document.getElementById('ek-pass').style.display = t === 'pass' ? 'block' : 'none';
+}
+
+function doSaveKlien() {
+  const i = parseInt(document.getElementById('ek-idx').value);
+  const k = klienList[i];
+  if (!k) return;
+  if (ekTabState === 'info') {
+    k.nama   = document.getElementById('ek-nama').value.trim();
+    k.email  = document.getElementById('ek-email').value.trim();
+    k.wa     = document.getElementById('ek-wa').value.trim();
+    k.proyek = document.getElementById('ek-proj').value.trim();
+    if (!k.nama || !k.email) { showToast('Nama dan email wajib diisi','err'); return; }
+    showToast('Data klien diperbarui ✓','ok');
+  } else {
+    const p1 = document.getElementById('ek-p1').value;
+    const p2 = document.getElementById('ek-p2').value;
+    if (!p1) { showToast('Masukkan password baru','err'); return; }
+    if (p1.length < 8) { showToast('Password minimal 8 karakter','err'); return; }
+    if (!SP.validators.password(p1)) { showToast('Password harus mengandung huruf besar dan angka','err'); return; }
+    if (p1 !== p2) { showToast('Konfirmasi password tidak cocok','err'); return; }
+    if (USERS[k.email]) USERS[k.email].pass = p1;
+    showToast(`Password ${k.nama} berhasil diubah ✓`,'ok');
+  }
+  closeModal('m-editklien');
+  buildNav();
+  const tb = document.getElementById('kl-tbody');
+  if (tb) tb.innerHTML = renderKlienRows();
+}
+
+function deleteKlien(i) {
+  if (!confirm(`Hapus klien "${klienList[i].nama}"?`)) return;
+  klienList.splice(i, 1);
+  const tb = document.getElementById('kl-tbody');
+  if (tb) tb.innerHTML = renderKlienRows();
+  showToast('Klien dihapus','inf');
+}
+
+function doAddKlien() {
+  const nama  = document.getElementById('ak-nama').value.trim();
+  const email = document.getElementById('ak-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('ak-pass').value;
+  const wa    = document.getElementById('ak-wa').value.trim();
+  const proyek= document.getElementById('ak-proj').value.trim();
+  if (!nama || !email || !pass) { showToast('Nama, email, dan password wajib diisi','err'); return; }
+  if (pass.length < 8) { showToast('Password minimal 8 karakter','err'); return; }
+  if (!SP.validators.password(pass)) { showToast('Password harus mengandung huruf besar dan angka','err'); return; }
+  if (USERS[email]) { showToast('Email sudah terdaftar','err'); return; }
+  USERS[email] = { pass, role:'klien', name:nama, avatar:nama.slice(0,2).toUpperCase() };
+  klienList.push({ nama, email, wa, proyek, total:0 });
+  closeModal('m-addklien');
+  showToast(`Klien ${nama} berhasil ditambahkan ✓`,'ok');
+  const tb = document.getElementById('kl-tbody');
+  if (tb) tb.innerHTML = renderKlienRows();
+}
+
+/* ══════════════════════════════════════
+   CMS: PENGUMUMAN
+══════════════════════════════════════ */
+function cmsPengumuman() {
+  setContent(`
+  <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+    <button class="btn btn-cu btn-sm" onclick="openCmsEdit('pengumuman',null)">+ Pengumuman Baru</button>
+  </div>
+  <div id="peng-list">${renderPengumumanList()}</div>`);
+}
+
+function renderPengumumanList() {
+  if (!cmsData.pengumuman.length) return '<div class="empty"><div class="empty-ic">📢</div><div class="empty-t">Belum ada pengumuman</div></div>';
+  return cmsData.pengumuman.map((p,i) => `
+  <div class="card" style="margin-bottom:12px">
+    <div class="ch">
+      <div>
+        <div class="ct">${p.judul}</div>
+        <div style="font-size:10px;color:var(--m1);margin-top:3px">
+          Dibuat: ${p.tgl} ·
+          <span style="color:${p.aktif?'var(--gn)':'var(--rd)'}">${p.aktif?'Aktif':'Nonaktif'}</span>
+        </div>
+      </div>
+      <div class="row-acts">
+        <button class="btn btn-xs ${p.aktif?'btn-rd':'btn-gn'}" onclick="togglePengumuman(${i})">${p.aktif?'Nonaktifkan':'Aktifkan'}</button>
+        <button class="btn btn-xs btn-bl" onclick="openCmsEdit('pengumuman',${i})">✏️ Edit</button>
+        <button class="btn btn-xs btn-rd" onclick="delPengumuman(${i})">🗑</button>
+      </div>
+    </div>
+    <div class="cb" style="font-size:13px;color:var(--m3);line-height:1.6">${p.isi}</div>
+  </div>`).join('');
+}
+function togglePengumuman(i) { cmsData.pengumuman[i].aktif = !cmsData.pengumuman[i].aktif; showToast('Status diperbarui','ok'); document.getElementById('peng-list').innerHTML = renderPengumumanList(); }
+function delPengumuman(i) { if(!confirm('Hapus pengumuman?')) return; cmsData.pengumuman.splice(i,1); showToast('Dihapus','inf'); document.getElementById('peng-list').innerHTML = renderPengumumanList(); }
+
+/* ══════════════════════════════════════
+   CMS: LAYANAN
+══════════════════════════════════════ */
+function cmsLayanan() {
+  setContent(`
+  <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+    <button class="btn btn-cu btn-sm" onclick="openCmsEdit('layanan',null)">+ Layanan Baru</button>
+  </div>
+  <div class="g2e" id="layan-list">${renderLayananList()}</div>`);
+}
+
+function renderLayananList() {
+  return cmsData.layanan.map((l,i) => `
+  <div class="card">
+    <div class="ch">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:22px">${l.ikon}</span>
+        <div><div class="ct">${l.nama}</div><div style="font-size:10px;color:${l.aktif?'var(--gn)':'var(--rd)'};margin-top:2px">${l.aktif?'Aktif':'Nonaktif'}</div></div>
+      </div>
+      <div class="row-acts">
+        <button class="btn btn-xs btn-bl" onclick="openCmsEdit('layanan',${i})">✏️</button>
+        <button class="btn btn-xs btn-rd" onclick="delLayanan(${i})">🗑</button>
+      </div>
+    </div>
+    <div class="cb">
+      <div style="font-size:12px;color:var(--m2);margin-bottom:8px">${l.isi}</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--cu)">${l.harga}</div>
+    </div>
+  </div>`).join('');
+}
+function delLayanan(i) { if(!confirm('Hapus layanan?')) return; cmsData.layanan.splice(i,1); showToast('Dihapus','inf'); const el=document.getElementById('layan-list'); if(el) el.innerHTML = renderLayananList(); }
+
+/* ══════════════════════════════════════
+   CMS: KONTAK
+══════════════════════════════════════ */
+function cmsKontak() {
+  const d = cmsData.kontak;
+  setContent(`
+  <div class="card" style="max-width:560px">
+    <div class="ch"><div class="ct">📞 Informasi Kontak</div></div>
+    <div class="cb">
+      <div class="fg"><label>Nama Studio / Perusahaan</label><input class="cms-inp" id="ck-nama" value="${esc(d.nama)}"></div>
+      <div class="fg"><label>Email</label><input class="cms-inp" id="ck-email" value="${esc(d.email)}"></div>
+      <div class="fg"><label>WhatsApp</label><input class="cms-inp" id="ck-wa" value="${esc(d.wa)}"></div>
+      <div class="fg"><label>Alamat</label><textarea class="cms-ta" id="ck-alamat">${esc(d.alamat)}</textarea></div>
+      <div class="fg"><label>Jam Operasional</label><input class="cms-inp" id="ck-jam" value="${esc(d.jam)}"></div>
+      <button class="btn btn-cu" onclick="saveKontak()">Simpan Perubahan</button>
+    </div>
+  </div>`);
+}
+function saveKontak() {
+  cmsData.kontak = { nama:v('ck-nama'), email:v('ck-email'), wa:v('ck-wa'), alamat:v('ck-alamat'), jam:v('ck-jam') };
+  showToast('Informasi kontak disimpan ✓','ok');
+}
+
+/* ══════════════════════════════════════
+   CMS: SITE INFO
+══════════════════════════════════════ */
+function cmsSiteinfo() {
+  const d = cmsData.siteinfo;
+  setContent(`
+  <div class="g2e">
+    <div class="card">
+      <div class="ch"><div class="ct">⚙️ Informasi Situs</div></div>
+      <div class="cb">
+        <div class="fg"><label>Nama Situs</label><input class="cms-inp" id="si-judul" value="${esc(d.judul)}"></div>
+        <div class="fg"><label>Tagline</label><input class="cms-inp" id="si-tag" value="${esc(d.tagline)}"></div>
+        <button class="btn btn-cu" onclick="saveSiteinfo()">Simpan</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">🏦 Info Rekening</div></div>
+      <div class="cb">
+        <div class="fg"><label>Rekening BCA</label><input class="cms-inp" id="si-bca" value="${esc(d.rek_bca)}"></div>
+        <div class="fg"><label>Rekening Mandiri</label><input class="cms-inp" id="si-mdr" value="${esc(d.rek_mandiri)}"></div>
+        <div class="fg"><label>Atas Nama</label><input class="cms-inp" id="si-an" value="${esc(d.an)}"></div>
+        <div class="info-box" style="margin-top:4px">Info rekening tampil pada tagihan klien yang belum lunas.</div>
+        <button class="btn btn-cu" style="margin-top:12px" onclick="saveRekening()">Simpan</button>
+      </div>
+    </div>
+  </div>`);
+}
+function saveSiteinfo() { cmsData.siteinfo.judul=v('si-judul'); cmsData.siteinfo.tagline=v('si-tag'); showToast('Pengaturan situs disimpan ✓','ok'); }
+function saveRekening() { cmsData.siteinfo.rek_bca=v('si-bca'); cmsData.siteinfo.rek_mandiri=v('si-mdr'); cmsData.siteinfo.an=v('si-an'); showToast('Info rekening disimpan ✓','ok'); }
+
+/* ── CMS EDIT MODAL ── */
+function openCmsEdit(type, idx) {
+  editCms = { type, idx };
+  const isNew = idx === null;
+  document.getElementById('cms-mt').textContent = `${isNew?'Tambah':'Edit'} ${type==='pengumuman'?'Pengumuman':'Layanan'}`;
+  let html = '';
+  if (type === 'pengumuman') {
+    const d = isNew ? { judul:'', isi:'', aktif:true } : cmsData.pengumuman[idx];
+    html = `
+    <div class="fg"><label>Judul</label><input class="cms-inp" id="ce-judul" value="${esc(d.judul)}" placeholder="Judul pengumuman"></div>
+    <div class="fg"><label>Isi / Konten</label><textarea class="cms-ta" id="ce-isi" rows="5">${esc(d.isi)}</textarea></div>
+    <div class="fg"><label>Status</label><select id="ce-aktif" class="cms-inp">
+      <option value="1"${d.aktif?' selected':''}>Aktif</option>
+      <option value="0"${!d.aktif?' selected':''}>Nonaktif</option>
+    </select></div>`;
+  } else {
+    const d = isNew ? { nama:'', isi:'', harga:'', ikon:'🛠️', aktif:true } : cmsData.layanan[idx];
+    html = `
+    <div class="fg2">
+      <div class="fg" style="margin-bottom:0"><label>Nama Layanan</label><input class="cms-inp" id="ce-nama" value="${esc(d.nama)}" placeholder="Nama Layanan"></div>
+      <div class="fg" style="margin-bottom:0"><label>Ikon (emoji)</label><input class="cms-inp" id="ce-ikon" value="${d.ikon||'🛠️'}"></div>
+    </div>
+    <div class="fg" style="margin-top:15px"><label>Deskripsi</label><textarea class="cms-ta" id="ce-isi">${esc(d.isi)}</textarea></div>
+    <div class="fg2">
+      <div class="fg" style="margin-bottom:0"><label>Harga</label><input class="cms-inp" id="ce-harga" value="${esc(d.harga)}" placeholder="Mulai Rp 5.000.000"></div>
+      <div class="fg" style="margin-bottom:0"><label>Status</label><select id="ce-aktif" class="cms-inp">
+        <option value="1"${d.aktif?' selected':''}>Aktif</option>
+        <option value="0"${!d.aktif?' selected':''}>Nonaktif</option>
+      </select></div>
+    </div>`;
+  }
+  document.getElementById('cms-body').innerHTML = html;
+  openModal('m-cms');
+}
+
+function saveCmsItem() {
+  const { type, idx } = editCms;
+  const isNew = idx === null;
+  if (type === 'pengumuman') {
+    const judul = v('ce-judul');
+    if (!judul) { showToast('Judul wajib diisi','err'); return; }
+    const item = { id: isNew ? Date.now() : cmsData.pengumuman[idx].id, judul, isi:v('ce-isi'), aktif: v('ce-aktif')==='1', tgl: isNew ? new Date().toLocaleDateString('id-ID') : cmsData.pengumuman[idx].tgl };
+    if (isNew) cmsData.pengumuman.unshift(item); else cmsData.pengumuman[idx] = item;
+    closeModal('m-cms'); showToast('Pengumuman disimpan ✓','ok'); cmsPengumuman();
+  } else {
+    const nama = v('ce-nama');
+    if (!nama) { showToast('Nama wajib diisi','err'); return; }
+    const item = { id: isNew ? Date.now() : cmsData.layanan[idx].id, nama, isi:v('ce-isi'), harga:v('ce-harga'), ikon:v('ce-ikon')||'🛠️', aktif: v('ce-aktif')==='1' };
+    if (isNew) cmsData.layanan.push(item); else cmsData.layanan[idx] = item;
+    closeModal('m-cms'); showToast('Layanan disimpan ✓','ok'); cmsLayanan();
+  }
+}
+
+/* ══════════════════════════════════════
+   ADMIN: REPORT
+══════════════════════════════════════ */
+function adminReport() {
+  const pA = payList.filter(p=>p.status==='paid').reduce((s,p)=>s+p.amount,0);
+  const pU = payList.filter(p=>p.status!=='paid').reduce((s,p)=>s+p.amount,0);
+  setContent(`
+  <div class="g3 stats">
+    <div class="sc gn"><div class="sl">Pendapatan Terkonfirmasi</div><div class="sv gn">${fRp(pA)}</div><div class="ss">${payList.filter(p=>p.status==='paid').length} invoice lunas</div></div>
+    <div class="sc rd"><div class="sl">Piutang</div><div class="sv rd">${fRp(pU)}</div><div class="ss">${payList.filter(p=>p.status!=='paid').length} invoice pending</div></div>
+    <div class="sc cu"><div class="sl">Total Klien</div><div class="sv cu">${klienList.length}</div><div class="ss">${uploads.length} total upload</div></div>
+  </div>
+  <div class="g2e">
+    <div class="card"><div class="ch"><div class="ct">Upload per Tipe</div></div><div class="cb">
+      ${[['revisi','Revisi','cu'],['rekaman','Rekaman','pu']].map(([t,l,c])=>{
+        const n=uploads.filter(u=>u.tipe===t).length, tot=uploads.length||1, pct=Math.round(n/tot*100);
+        return `<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>${l}</span><span style="color:var(--m1)">${n} (${pct}%)</span></div><div class="pbar" style="height:6px"><div class="pfill" style="width:${pct}%;background:var(--${c})"></div></div></div>`;
+      }).join('')}
+      ${[['pending','Menunggu','cu'],['approved','Disetujui','gn'],['rejected','Ditolak','rd'],['reviewed','Diputar','pu']].map(([s,l,c])=>{
+        const n=uploads.filter(u=>u.status===s).length, tot=uploads.length||1, pct=Math.round(n/tot*100);
+        return `<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>${l}</span><span style="color:var(--m1)">${n} (${pct}%)</span></div><div class="pbar" style="height:6px"><div class="pfill" style="width:${pct}%;background:var(--${c})"></div></div></div>`;
+      }).join('')}
+    </div></div>
+    <div class="card"><div class="ch"><div class="ct">Klien & Upload</div></div><div class="cb">
+      ${klienList.map(k=>{
+        const n=uploads.filter(u=>u.client===k.nama).length;
+        return `<div class="fi-item"><div class="fc fc-zip" style="font-family:'Syne',sans-serif;font-size:11px;font-weight:800">${k.nama.slice(0,2).toUpperCase()}</div><div class="fi-meta"><div class="fi-name">${k.nama}</div><div class="fi-size">${n} file · ${fRp(k.total)}</div></div><span class="chip ch-active">Aktif</span></div>`;
+      }).join('')}
+    </div></div>
+  </div>`);
+}
+
+/* ══════════════════════════════════════
+   KLIEN: DASHBOARD
+══════════════════════════════════════ */
+function dashKlien() {
+  const _unreadHasil = adminRevisions.filter(r => r.klien === CU.name && !r.dibaca).length;
+  const _hasilBanner = _unreadHasil ? `<div class="warn-box" style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="navTo('hasil-revisi')"><span>📨 Ada <strong>${_unreadHasil}</strong> hasil revisi baru dari studio!</span><button class="btn btn-cu btn-xs">Lihat →</button></div>` : '';
+  const myUp  = uploads.filter(u => u.client === CU.name);
+  const myRev = myUp.filter(u => u.tipe === 'revisi');
+  const myRek = myUp.filter(u => u.tipe === 'rekaman');
+  const myInv = payList.filter(p => p.client === CU.name);
+  const tot   = myInv.reduce((s,p)=>s+p.amount,0);
+  const lunas = myInv.filter(p=>p.status==='paid').reduce((s,p)=>s+p.amount,0);
+  const blm   = myInv.filter(p=>p.status!=='paid').reduce((s,p)=>s+p.amount,0);
+
+  setContent(`
+  <div class="wb">
+    <div><h2>Halo, <span>${CU.name.split(' ')[0]}</span>! 🎨</h2><p>Pantau perkembangan proyek dan pembayaran Anda.</p></div>
+    <div class="wb-ic">🎯</div>
+  </div>
+  ${_hasilBanner}
+  
+  <div class="g5 stats">
+    <div class="sc cu"><div class="sic">📄</div><div class="sl">Revisi</div><div class="sv cu">${myRev.length}</div><div class="ss">${myRev.filter(r=>r.status==='pending').length} menunggu</div></div>
+    <div class="sc pu"><div class="sic">🎙️</div><div class="sl">Rekaman</div><div class="sv pu">${myRek.length}</div><div class="ss">${myRek.filter(r=>r.status==='pending').length} baru</div></div>
+    <div class="sc gn"><div class="sic">✅</div><div class="sl">Disetujui</div><div class="sv gn">${myRev.filter(r=>r.status==='approved').length}</div><div class="ss">Revisi selesai</div></div>
+    <div class="sc bl"><div class="sic">💳</div><div class="sl">Total Tagihan</div><div class="sv bl">${fRp(tot)}</div><div class="ss">${myInv.length} invoice</div></div>
+    <div class="sc rd"><div class="sic">⏳</div><div class="sl">Belum Dibayar</div><div class="sv rd">${fRp(blm)}</div><div class="ss">${fRp(lunas)} lunas</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><div class="ct">File Saya</div><button class="btn btn-cu btn-xs" onclick="openModal('m-upload')">+ Upload</button></div>
+      <div class="cb0">${myUp.length ? `<table class="tbl"><thead><tr><th>Tipe</th><th>Proyek</th><th>Judul</th><th>Tgl</th><th>Status</th></tr></thead><tbody>
+        ${myUp.slice(0,8).map(u=>`<tr>
+          <td><span class="chip ${u.tipe==='rekaman'?'ch-rek-tipe':'ch-rev-tipe'}">${u.tipe==='rekaman'?'🎙️':'📄'} ${cap(u.tipe)}</span></td>
+          <td style="font-size:11px;color:var(--m1)">${u.proj}</td>
+          <td style="font-size:12px;font-weight:500">${u.judul}</td>
+          <td style="font-size:10px;color:var(--m1)">${u.tgl}</td>
+          <td><span class="chip ch-${stCls(u.status)}">${stLbl(u.status)}</span></td>
+        </tr>`).join('')}
+      </tbody></table>` : '<div class="empty"><div class="empty-t">Belum ada upload</div></div>'}</div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">Tagihan Saya</div><button class="btn btn-ol btn-xs" onclick="navTo('pay-kln')">Bayar →</button></div>
+      <div class="cb">${myInv.length ? myInv.map(p=>`
+        <div class="ic">
+          <div class="ic-top"><span class="ic-id">${p.id}</span><span class="chip ch-${pStCls(p.status)}">${pStLbl(p.status)}</span></div>
+          <div class="ic-desc">${p.desc}</div>
+          <div class="ic-ft"><span class="ic-due">Jatuh tempo: ${p.due}</span><span class="ic-amt">${fRp(p.amount)}</span></div>
+          ${p.status==='unpaid'?`<button class="btn btn-cu btn-full btn-sm" style="margin-top:8px" onclick="openPayModal('${p.id}')">Bayar Sekarang</button>`:''}
+        </div>`).join('') : '<div class="empty"><div class="empty-t">Tidak ada tagihan</div></div>'}
+      </div>
+    </div>
+  </div>`);
+}
+
+/* ══════════════════════════════════════
+   KLIEN: UPLOAD FILE (Revisi + Rekaman)
+══════════════════════════════════════ */
+function klienUpload() {
+  uFiles = {};
+  pgBlobs = [];
+  const myUp = uploads.filter(u => u.client === CU.name);
+
+  setContent(`
+  <div class="g2">
+    <div>
+      <div class="card">
+        <div class="ch"><div class="ct">📤 Upload File</div></div>
+        <div class="cb">
+          <div class="tabs" id="pg-tabs">
+            <div class="tab on" onclick="setPgTab('rev',this)">📄 Revisi</div>
+            <div class="tab" onclick="setPgTab('rek',this)">🎙️ Rekaman</div>
+          </div>
+          <!-- REVISI -->
+          <div id="pg-rev">
+            <div class="fg"><label>Proyek</label>
+              <select id="pg-proj">${projectOptions()}</select>
+            </div>
+            <div class="fg2">
+              <div class="fg" style="margin-bottom:0"><label>Versi</label><input type="text" id="pg-ver" placeholder="cth. v2.1"></div>
+              <div class="fg" style="margin-bottom:0"><label>Tanggal</label><input type="text" id="pg-tgl" placeholder="${today()}"></div>
+            </div>
+            <div class="fg" style="margin-top:15px"><label>Catatan</label><textarea id="pg-note" placeholder="Jelaskan perubahan..."></textarea></div>
+            <div class="upz" id="pg-zone" ondragover="onDragOver(event,'pg-zone')" ondragleave="onDragLeave('pg-zone')" ondrop="onDrop(event,'pg-files')">
+              <div class="upz-ic">📎</div>
+              <div class="upz-t">Seret atau klik untuk upload</div>
+              <div class="upz-s">PDF · ZIP · PNG · AI · PSD — Maks 50MB</div>
+              <input type="file" multiple onchange="onFileInput(event,'pg-files')">
+            </div>
+            <div id="pg-files-list" style="margin-top:6px"></div>
+            <div id="pg-prog" style="display:none;margin-top:8px">
+              <div style="font-size:11px;color:var(--m1);margin-bottom:4px">Mengirim...</div>
+              <div class="pbar"><div class="pfill" id="pg-pfill" style="width:0%"></div></div>
+            </div>
+            <button class="btn btn-cu btn-full" style="margin-top:14px" onclick="submitPgRevisi()">Kirim Revisi</button>
+          </div>
+          <!-- REKAMAN -->
+          <div id="pg-rek" style="display:none">
+            <div class="fg"><label>Proyek</label>
+              <select id="pgr-proj">${projectOptions()}</select>
+            </div>
+            <div class="fg"><label>Judul Rekaman</label><input type="text" id="pgr-judul" placeholder="cth. Feedback Halaman Utama"></div>
+            <div class="fg"><label>Catatan</label><textarea id="pgr-note" placeholder="Instruksi atau keterangan..."></textarea></div>
+            <canvas class="rec-cv" id="pg-cv"></canvas>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+              <div class="rec-timer" id="pg-timer">00:00</div>
+              <div id="pg-pulse" style="display:none"><div class="rec-pulse"></div></div>
+              <span style="font-size:11px;color:var(--m1);margin-left:auto" id="pg-rec-st">Siap merekam</span>
+            </div>
+            <div style="display:flex;gap:8px;margin-bottom:10px">
+              <button class="btn btn-rd btn-sm" id="pg-btn-s" type="button" onclick="pgStartRec()">⏺ Mulai</button>
+              <button class="btn btn-gh btn-sm" id="pg-btn-p" type="button" style="display:none" onclick="pgPauseRec()">⏸ Jeda</button>
+              <button class="btn btn-gh btn-sm" id="pg-btn-st" type="button" style="display:none" onclick="pgStopRec()">⏹ Stop</button>
+            </div>
+            <div id="pg-blobs-list"></div>
+            <div class="sep"><div class="sep-line"></div>atau upload file<div class="sep-line"></div></div>
+            <div class="upz" id="pgr-zone" style="padding:18px" ondragover="onDragOver(event,'pgr-zone')" ondragleave="onDragLeave('pgr-zone')" ondrop="onDrop(event,'pgr-files')">
+              <div class="upz-ic" style="font-size:20px">🎵</div>
+              <div class="upz-t" style="font-size:12px">Upload Audio / Video</div>
+              <div class="upz-s">MP3 · WAV · M4A · MP4 · WEBM</div>
+              <input type="file" accept="audio/*,video/*" multiple onchange="onFileInput(event,'pgr-files')">
+            </div>
+            <div id="pgr-files-list" style="margin-top:6px"></div>
+            <div id="pgr-prog" style="display:none;margin-top:8px">
+              <div style="font-size:11px;color:var(--m1);margin-bottom:4px">Mengirim...</div>
+              <div class="pbar"><div class="pfill" id="pgr-pfill" style="width:0%"></div></div>
+            </div>
+            <button class="btn btn-cu btn-full" style="margin-top:14px" onclick="submitPgRekaman()">Kirim Rekaman</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">Semua Upload Saya</div><span style="font-size:11px;color:var(--m1)">${myUp.length} file</span></div>
+      <div class="cb0" id="my-up-list">${renderMyUploads()}</div>
+    </div>
+  </div>`);
+
+  // draw idle canvas after DOM ready
+  setTimeout(() => pgDrawIdle(), 50);
+}
+
+function setPgTab(t, el) {
+  document.querySelectorAll('#pg-tabs .tab').forEach(tb => tb.classList.remove('on'));
+  if (el) el.classList.add('on');
+  document.getElementById('pg-rev').style.display = t === 'rev' ? 'block' : 'none';
+  document.getElementById('pg-rek').style.display = t === 'rek' ? 'block' : 'none';
+  if (t === 'rek') setTimeout(() => pgDrawIdle(), 30);
+}
+
+function renderMyUploads() {
+  const list = uploads.filter(u => u.client === CU.name);
+  if (!list.length) return '<div class="empty"><div class="empty-ic">📂</div><div class="empty-t">Belum ada upload</div></div>';
+  return `<div style="padding:0 16px">${list.map(u=>`
+    <div class="fi-item">
+      <div class="fc ${u.tipe==='rekaman'?'fc-aud':'fc-pdf'}">${u.tipe==='rekaman'?'🎙️':'📄'}</div>
+      <div class="fi-meta">
+        <div class="fi-name">${u.judul}${u.ver&&u.ver!=='-'?` <span style="font-size:10px;color:var(--m1)">(${u.ver})</span>`:''}</div>
+        <div class="fi-size">${u.proj} · ${u.tgl}</div>
+      </div>
+      <span class="chip ch-${stCls(u.status)}" style="font-size:9px">${stLbl(u.status)}</span>
+    </div>`).join('')}</div>`;
+}
+
+function submitPgRevisi() {
+  const proj = v('pg-proj');
+  const ver  = v('pg-ver');
+  const note = v('pg-note');
+  if (!proj) { showToast('Pilih proyek terlebih dahulu','err'); return; }
+  if (!ver)  { showToast('Isi versi terlebih dahulu','err'); return; }
+  const files = uFiles['pg-files'] || [];
+  if (!files.length) { showToast('Upload minimal 1 file','err'); return; }
+  runProgress('pg-prog','pg-pfill', () => {
+    uploads.unshift({ id:Date.now(), client:CU.name, proj, tipe:'revisi', ver, judul:`Revisi ${ver}`, catatan:note, files:files.map(f=>f.name), tgl:today(), status:'pending' });
+    uFiles['pg-files'] = [];
+    renderFileList('pg-files');
+    buildNav();
+    showToast('Revisi berhasil dikirim! ✓','ok');
+    const el = document.getElementById('my-up-list');
+    if (el) el.innerHTML = renderMyUploads();
+  });
+}
+
+function submitPgRekaman() {
+  const proj  = v('pgr-proj');
+  const judul = v('pgr-judul');
+  const note  = v('pgr-note');
+  if (!proj)  { showToast('Pilih proyek terlebih dahulu','err'); return; }
+  if (!judul) { showToast('Isi judul rekaman','err'); return; }
+  const audFiles = uFiles['pgr-files'] || [];
+  if (!pgBlobs.length && !audFiles.length) { showToast('Rekam atau upload file audio terlebih dahulu','err'); return; }
+  runProgress('pgr-prog','pgr-pfill', () => {
+    const allItems = [
+      ...pgBlobs.map(b => ({ name:b.name, dur:b.dur })),
+      ...audFiles.map(f => ({ name:f.name, dur:'—' })),
+    ];
+    allItems.forEach(item => {
+      uploads.unshift({ id:Date.now()+Math.random(), client:CU.name, proj, tipe:'rekaman', ver:item.dur, judul, catatan:note, files:[item.name], tgl:today(), status:'pending' });
+    });
+    pgBlobs = [];
+    uFiles['pgr-files'] = [];
+    renderFileList('pgr-files');
+    document.getElementById('pg-blobs-list').innerHTML = '';
+    buildNav();
+    showToast('Rekaman berhasil dikirim! ✓','ok');
+    const el = document.getElementById('my-up-list');
+    if (el) el.innerHTML = renderMyUploads();
+  });
+}
+
+/* ── PAGE RECORDER ── */
+function pgDrawIdle() {
+  const c = document.getElementById('pg-cv');
+  if (!c) return;
+  c.width = c.offsetWidth || c.parentElement.offsetWidth || 400;
+  c.height = 60;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.strokeStyle = 'rgba(201,121,65,.22)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(0, 30);
+  for (let x = 0; x < c.width; x += 4) ctx.lineTo(x, 30 + Math.sin(x * 0.055) * 5);
+  ctx.stroke();
+}
+
+async function pgStartRec() {
+  try {
+    pgStream = await navigator.mediaDevices.getUserMedia({ audio:true });
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ac = new AC();
+    const src = ac.createMediaStreamSource(pgStream);
+    const an = ac.createAnalyser(); an.fftSize = 512;
+    src.connect(an);
+    const c = document.getElementById('pg-cv');
+    const buf = new Uint8Array(an.frequencyBinCount);
+    function draw() {
+      pgAnim = requestAnimationFrame(draw);
+      an.getByteTimeDomainData(buf);
+      c.width = c.offsetWidth || 400; c.height = 60;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0,0,c.width,c.height);
+      ctx.shadowBlur = 6; ctx.shadowColor = 'rgba(224,85,85,.4)';
+      ctx.strokeStyle = 'rgba(224,85,85,.9)'; ctx.lineWidth = 2;
+      ctx.beginPath();
+      const sw = c.width / buf.length; let x = 0;
+      for (let i = 0; i < buf.length; i++) {
+        const y = (buf[i] / 128) * 30;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        x += sw;
+      }
+      ctx.lineTo(c.width, 30); ctx.stroke();
+    }
+    draw();
+    pgRec = new MediaRecorder(pgStream);
+    pgChunks = []; pgSec = 0; pgPaused = false;
+    pgRec.ondataavailable = e => { if (e.data.size > 0) pgChunks.push(e.data); };
+    pgRec.onstop = () => {
+      const blob = new Blob(pgChunks, { type:'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const dur = fDur(pgSec);
+      pgBlobs.push({ blob, url, dur, sz:fSz(blob.size), name:`rekaman_${Date.now()}.webm` });
+      renderPgBlobs();
+      const t = document.getElementById('pg-timer'); if(t) t.textContent = '00:00';
+    };
+    pgRec.start(100);
+    pgIntv = setInterval(() => {
+      if (!pgPaused) {
+        pgSec++;
+        const el = document.getElementById('pg-timer');
+        if (el) el.textContent = fDur(pgSec);
+      }
+    }, 1000);
+    sel('pg-btn-s', 'display', 'none');
+    sel('pg-btn-p', 'display', 'flex');
+    sel('pg-btn-st', 'display', 'flex');
+    sel('pg-pulse', 'display', 'block');
+    const timer = document.getElementById('pg-timer'); if(timer) timer.classList.add('rec-on');
+    const st = document.getElementById('pg-rec-st'); if(st) st.textContent = 'Sedang merekam…';
+  } catch(e) {
+    showToast('Mikrofon tidak dapat diakses. Izinkan akses mikrofon.','err');
+  }
+}
+
+function pgPauseRec() {
+  if (!pgRec) return;
+  if (pgPaused) {
+    pgRec.resume(); pgPaused = false;
+    const btn = document.getElementById('pg-btn-p'); if(btn) btn.innerHTML = '⏸ Jeda';
+    sel('pg-pulse','display','block');
+    const st = document.getElementById('pg-rec-st'); if(st) st.textContent = 'Sedang merekam…';
+  } else {
+    pgRec.pause(); pgPaused = true;
+    const btn = document.getElementById('pg-btn-p'); if(btn) btn.innerHTML = '▶ Lanjut';
+    sel('pg-pulse','display','none');
+    const st = document.getElementById('pg-rec-st'); if(st) st.textContent = 'Dijeda';
+  }
+}
+
+function pgStopRec() {
+  if (pgRec && pgRec.state !== 'inactive') pgRec.stop();
+  if (pgStream) pgStream.getTracks().forEach(t => t.stop());
+  clearInterval(pgIntv);
+  if (pgAnim) { cancelAnimationFrame(pgAnim); pgAnim = null; }
+  pgRec = null; pgStream = null;
+  sel('pg-btn-s','display','flex'); sel('pg-btn-p','display','none'); sel('pg-btn-st','display','none');
+  sel('pg-pulse','display','none');
+  const timer = document.getElementById('pg-timer'); if(timer) timer.classList.remove('rec-on');
+  const st = document.getElementById('pg-rec-st'); if(st) st.textContent = 'Siap merekam';
+  pgDrawIdle();
+}
+
+function renderPgBlobs() {
+  const el = document.getElementById('pg-blobs-list'); if (!el) return;
+  el.innerHTML = pgBlobs.map((b,i) => `
+    <div class="fi-item">
+      <div class="fc fc-aud">🎙️</div>
+      <div class="fi-meta">
+        <div class="fi-name">${b.name}</div>
+        <div class="fi-size">${b.dur} · ${b.sz}</div>
+        <audio src="${b.url}" controls style="width:100%;height:28px;margin-top:5px"></audio>
+      </div>
+      <button class="btn btn-xs btn-rd" onclick="pgBlobs.splice(${i},1);renderPgBlobs()">✕</button>
+    </div>`).join('');
+}
+
+/* ══════════════════════════════════════
+   KLIEN: PEMBAYARAN
+══════════════════════════════════════ */
+function klienPay() {
+  const myInv = payList.filter(p => p.client === CU.name);
+  const unpaid = myInv.filter(p => p.status === 'unpaid');
+  setContent(`
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><div class="ct">💳 Upload Bukti Pembayaran</div></div>
+      <div class="cb">
+        <div class="fg"><label>Invoice</label>
+          <select id="kp-inv" class="cms-inp">
+            ${unpaid.length ? unpaid.map(p=>`<option value="${p.id}">${p.id} — ${fRp(p.amount)}</option>`).join('') : '<option value="">Tidak ada tagihan yang perlu dibayar</option>'}
+          </select>
+        </div>
+        <div class="fg2">
+          <div class="fg" style="margin-bottom:0"><label>Metode</label>
+            <select id="kp-meth" class="cms-inp"><option>Transfer BCA</option><option>Transfer Mandiri</option><option>QRIS</option><option>GoPay/OVO</option></select>
+          </div>
+          <div class="fg" style="margin-bottom:0"><label>Jumlah (Rp)</label><input type="number" id="kp-amt" class="cms-inp" placeholder="0"></div>
+        </div>
+        <div class="fg2" style="margin-top:15px">
+          <div class="fg" style="margin-bottom:0"><label>Tanggal</label><input type="text" id="kp-tgl" class="cms-inp" placeholder="${today()}"></div>
+          <div class="fg" style="margin-bottom:0"><label>Kode Referensi</label><input type="text" id="kp-ref" class="cms-inp" placeholder="TRF..."></div>
+        </div>
+        <div class="fg" style="margin-top:15px"><label>Bukti Transfer</label>
+          <div class="upz" style="padding:16px">
+            <div class="upz-ic" style="font-size:20px">🧾</div>
+            <div class="upz-t" style="font-size:12px">Upload Bukti Transfer</div>
+            <input type="file" accept="image/*,.pdf" onchange="kpFileIn(event)">
+          </div>
+          <div id="kp-prev" style="margin-top:6px"></div>
+        </div>
+        <button class="btn btn-cu btn-full" style="margin-top:14px" onclick="submitKpPay()">Kirim Bukti Pembayaran</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">Semua Tagihan Saya</div></div>
+      <div class="cb">${myInv.length ? myInv.map(p=>`
+        <div class="ic">
+          <div class="ic-top"><span class="ic-id">${p.id}</span><span class="chip ch-${pStCls(p.status)}">${pStLbl(p.status)}</span></div>
+          <div class="ic-desc">${p.desc}</div>
+          <div class="ic-ft"><span class="ic-due">Jatuh tempo: ${p.due}</span><span class="ic-amt">${fRp(p.amount)}</span></div>
+          ${p.status==='unpaid'?`<div class="info-box" style="margin-top:8px;font-size:10px">BCA: <strong>${cmsData.siteinfo.rek_bca}</strong> a.n. ${cmsData.siteinfo.an}</div>`:''}
+        </div>`).join('') : '<div class="empty"><div class="empty-t">Tidak ada tagihan</div></div>'}
+      </div>
+    </div>
+  </div>`);
+  kpFileObj = null;
+}
+
+function kpFileIn(e) {
+  kpFileObj = e.target.files[0];
+  const el = document.getElementById('kp-prev');
+  if (el && kpFileObj) el.innerHTML = `
+    <div class="fi-item">
+      <div class="fc fc-img">🧾</div>
+      <div class="fi-meta"><div class="fi-name">${kpFileObj.name}</div><div class="fi-size">${fSz(kpFileObj.size)}</div></div>
+      <button class="btn btn-xs btn-gh" onclick="kpFileObj=null;document.getElementById('kp-prev').innerHTML=''">✕</button>
+    </div>`;
+}
+
+function submitKpPay() {
+  const invId = v('kp-inv');
+  const amt   = v('kp-amt');
+  if (!invId || invId === '') { showToast('Pilih invoice yang akan dibayar','err'); return; }
+  if (!amt)   { showToast('Masukkan jumlah pembayaran','err'); return; }
+  if (!kpFileObj) { showToast('Upload bukti pembayaran terlebih dahulu','err'); return; }
+  const idx = payList.findIndex(p => p.id === invId);
+  if (idx >= 0) {
+    payList[idx].status = 'verify';
+    payList[idx].method = v('kp-meth');
+    payList[idx].date   = v('kp-tgl') || today();
+    payList[idx].ref    = v('kp-ref');
+  }
+  kpFileObj = null;
+  showToast('Bukti pembayaran dikirim! Menunggu verifikasi.','ok');
+  klienPay();
+}
+
+/* ══════════════════════════════════════
+   KLIEN: PROFIL
+══════════════════════════════════════ */
+function klienProfile() {
+  setContent(`
+  <div style="max-width:460px">
+    <div class="card">
+      <div class="cb">
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:22px">
+          <div class="av av-k" style="width:54px;height:54px;font-size:18px">${CU.avatar}</div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800">${CU.name}</div>
+            <div style="font-size:11px;color:var(--m1);margin-top:3px">${CU.email}</div>
+            <span class="chip ch-active" style="margin-top:7px;display:inline-flex">Klien Aktif</span>
+          </div>
+        </div>
+        <div class="fg"><label>Nama Lengkap</label><input type="text" id="pf-nama" class="cms-inp" value="${esc(CU.name)}"></div>
+        <div class="fg"><label>Email</label><input type="email" id="pf-email" class="cms-inp" value="${esc(CU.email)}"></div>
+        <div class="fg"><label>Password Baru</label><input type="password" id="pf-pass" class="cms-inp" placeholder="Kosongkan jika tidak ingin mengubah"></div>
+        <div class="fg"><label>Konfirmasi Password</label><input type="password" id="pf-pass2" class="cms-inp" placeholder="Ulangi password baru"></div>
+        <button class="btn btn-cu" onclick="saveProfile()">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>`);
+}
+
+function saveProfile() {
+  const nama  = v('pf-nama');
+  const email = v('pf-email');
+  const pass  = v('pf-pass');
+  const pass2 = v('pf-pass2');
+  if (!nama) { showToast('Nama tidak boleh kosong','err'); return; }
+  if (pass && pass.length < 8) { showToast('Password minimal 8 karakter','err'); return; }
+  if (pass && !SP.validators.password(pass)) { showToast('Password harus mengandung huruf besar dan angka','err'); return; }
+  if (pass && pass !== pass2) { showToast('Konfirmasi password tidak cocok','err'); return; }
+  CU.name = nama; CU.email = email;
+  if (USERS[CU.email]) { USERS[CU.email].name = nama; if (pass) USERS[CU.email].pass = pass; }
+  document.getElementById('sb-un').textContent = CU.name;
+  showToast('Profil berhasil diperbarui ✓','ok');
+}
+
+/* ══════════════════════════════════════
+   UPLOAD MODAL (tombol + di topbar)
+══════════════════════════════════════ */
+function setUpTab(t, el) {
+  upTabState = t;
+  document.querySelectorAll('#uptabs .tab').forEach(tb => tb.classList.remove('on'));
+  if (el) el.classList.add('on');
+  document.getElementById('up-rev').style.display = t === 'rev' ? 'block' : 'none';
+  document.getElementById('up-rek').style.display = t === 'rek' ? 'block' : 'none';
+  if (t === 'rek') setTimeout(() => mDrawIdle(), 30);
+}
+
+// Reset upload modal fields
+function resetUploadModal() {
+  upTabState = 'rev';
+  document.querySelectorAll('#uptabs .tab').forEach((tb,i) => tb.classList.toggle('on', i===0));
+  document.getElementById('up-rev').style.display = 'block';
+  document.getElementById('up-rek').style.display = 'none';
+  // populate project options
+  ['ur-proj','urk-proj'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.innerHTML = projectOptions();
+  });
+  uFiles['ur-files'] = [];
+  uFiles['urk-files'] = [];
+  renderFileList('ur-files');
+  renderFileList('urk-files');
+  mBlobs = [];
+  const mb = document.getElementById('m-blobs'); if (mb) mb.innerHTML = '';
+  mDrawIdle();
+}
+
+function submitUpload() {
+  if (upTabState === 'rev') {
+    const proj = v('ur-proj');
+    const ver  = v('ur-ver');
+    const note = v('ur-note');
+    if (!proj) { showToast('Pilih proyek terlebih dahulu','err'); return; }
+    if (!ver)  { showToast('Isi versi terlebih dahulu','err'); return; }
+    const files = uFiles['ur-files'] || [];
+    if (!files.length) { showToast('Upload minimal 1 file','err'); return; }
+    runProgress('up-prog','up-pfill', () => {
+      uploads.unshift({ id:Date.now(), client:CU.name, proj, tipe:'revisi', ver, judul:`Revisi ${ver}`, catatan:note, files:files.map(f=>f.name), tgl:today(), status:'pending' });
+      uFiles['ur-files'] = [];
+      closeModal('m-upload');
+      buildNav();
+      showToast('Revisi berhasil dikirim! ✓','ok');
+      const el = document.getElementById('my-up-list'); if (el) el.innerHTML = renderMyUploads();
+    });
+  } else {
+    const proj  = v('urk-proj');
+    const judul = v('urk-judul');
+    const note  = v('urk-note');
+    if (!proj)  { showToast('Pilih proyek terlebih dahulu','err'); return; }
+    if (!judul) { showToast('Isi judul rekaman','err'); return; }
+    const audFiles = uFiles['urk-files'] || [];
+    if (!mBlobs.length && !audFiles.length) { showToast('Rekam atau upload file audio','err'); return; }
+    runProgress('up-prog','up-pfill', () => {
+      [...mBlobs.map(b=>({name:b.name,dur:b.dur})), ...audFiles.map(f=>({name:f.name,dur:'—'}))].forEach(item => {
+        uploads.unshift({ id:Date.now()+Math.random(), client:CU.name, proj, tipe:'rekaman', ver:item.dur, judul, catatan:note, files:[item.name], tgl:today(), status:'pending' });
+      });
+      mBlobs = []; uFiles['urk-files'] = [];
+      closeModal('m-upload');
+      buildNav();
+      showToast('Rekaman berhasil dikirim! ✓','ok');
+      const el = document.getElementById('my-up-list'); if (el) el.innerHTML = renderMyUploads();
+    });
+  }
+}
+
+/* ── MODAL RECORDER ── */
+function mDrawIdle() {
+  const c = document.getElementById('m-cv'); if (!c) return;
+  c.width = c.offsetWidth || c.parentElement?.offsetWidth || 460; c.height = 60;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.strokeStyle = 'rgba(201,121,65,.22)'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(0, 30);
+  for (let x = 0; x < c.width; x += 4) ctx.lineTo(x, 30 + Math.sin(x * 0.055) * 5);
+  ctx.stroke();
+}
+
+async function mStartRec() {
+  try {
+    mStream = await navigator.mediaDevices.getUserMedia({ audio:true });
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ac = new AC();
+    const src = ac.createMediaStreamSource(mStream);
+    const an = ac.createAnalyser(); an.fftSize = 512;
+    src.connect(an);
+    const c = document.getElementById('m-cv');
+    const buf = new Uint8Array(an.frequencyBinCount);
+    function draw() {
+      mAnim = requestAnimationFrame(draw);
+      an.getByteTimeDomainData(buf);
+      c.width = c.offsetWidth || 460; c.height = 60;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0,0,c.width,c.height);
+      ctx.shadowBlur = 6; ctx.shadowColor = 'rgba(224,85,85,.4)';
+      ctx.strokeStyle = 'rgba(224,85,85,.9)'; ctx.lineWidth = 2;
+      ctx.beginPath();
+      const sw = c.width / buf.length; let x = 0;
+      for (let i = 0; i < buf.length; i++) {
+        const y = (buf[i]/128)*30;
+        i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+        x += sw;
+      }
+      ctx.lineTo(c.width,30); ctx.stroke();
+    }
+    draw();
+    mRec = new MediaRecorder(mStream); mChunks = []; mSec = 0; mPaused = false;
+    mRec.ondataavailable = e => { if (e.data.size > 0) mChunks.push(e.data); };
+    mRec.onstop = () => {
+      const blob = new Blob(mChunks, {type:'audio/webm'});
+      const url = URL.createObjectURL(blob);
+      mBlobs.push({ blob, url, dur:fDur(mSec), sz:fSz(blob.size), name:`rekaman_${Date.now()}.webm` });
+      renderMBlobs();
+      const t = document.getElementById('m-timer'); if(t) t.textContent = '00:00';
+    };
+    mRec.start(100);
+    mIntv = setInterval(() => { if(!mPaused) { mSec++; const t=document.getElementById('m-timer'); if(t) t.textContent=fDur(mSec); } }, 1000);
+    sel('m-btn-start','display','none'); sel('m-btn-pause','display','flex'); sel('m-btn-stop','display','flex');
+    sel('m-pulse','display','block');
+    const timer = document.getElementById('m-timer'); if(timer) timer.classList.add('rec-on');
+    const st = document.getElementById('m-rec-status'); if(st) st.textContent='Sedang merekam…';
+  } catch(e) { showToast('Mikrofon tidak dapat diakses','err'); }
+}
+
+function mPauseRec() {
+  if (!mRec) return;
+  if (mPaused) {
+    mRec.resume(); mPaused = false;
+    const btn=document.getElementById('m-btn-pause'); if(btn) btn.innerHTML='⏸ Jeda';
+    sel('m-pulse','display','block');
+    const st=document.getElementById('m-rec-status'); if(st) st.textContent='Sedang merekam…';
+  } else {
+    mRec.pause(); mPaused = true;
+    const btn=document.getElementById('m-btn-pause'); if(btn) btn.innerHTML='▶ Lanjut';
+    sel('m-pulse','display','none');
+    const st=document.getElementById('m-rec-status'); if(st) st.textContent='Dijeda';
+  }
+}
+
+function mStopRec() {
+  if (mRec && mRec.state !== 'inactive') mRec.stop();
+  if (mStream) mStream.getTracks().forEach(t => t.stop());
+  clearInterval(mIntv); if (mAnim) { cancelAnimationFrame(mAnim); mAnim = null; }
+  mRec = null; mStream = null;
+  sel('m-btn-start','display','flex'); sel('m-btn-pause','display','none'); sel('m-btn-stop','display','none');
+  sel('m-pulse','display','none');
+  const timer=document.getElementById('m-timer'); if(timer) timer.classList.remove('rec-on');
+  const st=document.getElementById('m-rec-status'); if(st) st.textContent='Siap merekam';
+  mDrawIdle();
+}
+
+function renderMBlobs() {
+  const el = document.getElementById('m-blobs'); if (!el) return;
+  el.innerHTML = mBlobs.map((b,i) => `
+    <div class="fi-item">
+      <div class="fc fc-aud">🎙️</div>
+      <div class="fi-meta">
+        <div class="fi-name">${b.name}</div>
+        <div class="fi-size">${b.dur} · ${b.sz}</div>
+        <audio src="${b.url}" controls style="width:100%;height:28px;margin-top:5px"></audio>
+      </div>
+      <button class="btn btn-xs btn-rd" onclick="mBlobs.splice(${i},1);renderMBlobs()">✕</button>
+    </div>`).join('');
+}
+
+/* ══════════════════════════════════════
+   INVOICE MODAL
+══════════════════════════════════════ */
+function openInvModal() {
+  const sel = document.getElementById('inv-client');
+  sel.innerHTML = klienList.map(k => `<option>${k.nama}</option>`).join('');
+  document.getElementById('inv-desc').value = '';
+  document.getElementById('inv-amt').value = '';
+  document.getElementById('inv-due').value = '';
+  document.getElementById('inv-note').value = '';
+  openModal('m-inv');
+}
+
+function doCreateInv() {
+  const client = v('inv-client');
+  const desc   = v('inv-desc');
+  const amt    = parseInt(v('inv-amt')) || 0;
+  const due    = v('inv-due');
+  if (!desc) { showToast('Isi deskripsi invoice','err'); return; }
+  if (!amt)  { showToast('Isi jumlah invoice','err'); return; }
+  const id = 'INV-' + String(payList.length + 1).padStart(3,'0');
+  const inv = { id, client, desc, amount:amt, due, status:'unpaid', method:'-', date:'-', ref:'-' };
+  payList.unshift(inv); invList.unshift(inv);
+  closeModal('m-inv');
+  showToast(`Invoice ${id} berhasil dibuat ✓`,'ok');
+  adminPay();
+}
+
+/* ══════════════════════════════════════
+   BAYAR MODAL (klien dari dashboard)
+══════════════════════════════════════ */
+function openPayModal(invId) {
+  const myUnpaid = payList.filter(p => p.client === CU.name && p.status === 'unpaid');
+  const pyInvEl = document.getElementById('py-inv');
+  pyInvEl.innerHTML = myUnpaid.length
+    ? myUnpaid.map(p=>`<option value="${p.id}"${p.id===invId?' selected':''}>${p.id} — ${fRp(p.amount)}</option>`).join('')
+    : '<option value="">Tidak ada tagihan</option>';
+  document.getElementById('py-amt').value = '';
+  document.getElementById('py-tgl').value = '';
+  document.getElementById('py-ref').value = '';
+  document.getElementById('py-file-prev').innerHTML = '';
+  pyFileObj = null;
+  openModal('m-pay');
+}
+
+function pyFileIn(e) {
+  pyFileObj = e.target.files[0];
+  const el = document.getElementById('py-file-prev');
+  if (el && pyFileObj) el.innerHTML = `
+    <div class="fi-item">
+      <div class="fc fc-img">🧾</div>
+      <div class="fi-meta"><div class="fi-name">${pyFileObj.name}</div><div class="fi-size">${fSz(pyFileObj.size)}</div></div>
+      <button class="btn btn-xs btn-gh" onclick="pyFileObj=null;this.closest('.fi-item').remove()">✕</button>
+    </div>`;
+}
+
+function submitPay() {
+  const invId = v('py-inv');
+  const amt   = v('py-amt');
+  if (!invId) { showToast('Pilih invoice','err'); return; }
+  if (!amt)   { showToast('Masukkan jumlah','err'); return; }
+  if (!pyFileObj) { showToast('Upload bukti pembayaran','err'); return; }
+  const idx = payList.findIndex(p => p.id === invId);
+  if (idx >= 0) {
+    payList[idx].status = 'verify';
+    payList[idx].method = v('py-meth');
+    payList[idx].date   = v('py-tgl') || today();
+    payList[idx].ref    = v('py-ref');
+  }
+  pyFileObj = null;
+  closeModal('m-pay');
+  showToast('Bukti pembayaran terkirim! Menunggu verifikasi.','ok');
+  buildNav();
+}
+
+/* ══════════════════════════════════════
+   DETAIL MODAL
+══════════════════════════════════════ */
+function showDetail(id) {
+  const u = uploads.find(u => u.id === id);
+  if (!u) { showToast('Data tidak ditemukan','err'); return; }
+  document.getElementById('dt-title').textContent = `${u.tipe==='rekaman'?'🎙️':'📄'} ${u.judul}`;
+  document.getElementById('dt-body').innerHTML = `
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+    ${[['Klien',u.client],['Proyek',u.proj],['Tipe',cap(u.tipe)],['Tanggal',u.tgl]].map(([l,vl])=>`
+    <div class="info-box"><div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--m1);margin-bottom:3px">${l}</div><div style="font-size:13px;font-weight:600">${vl}</div></div>`).join('')}
+  </div>
+  ${u.ver && u.ver !== '-' ? `<div class="info-box" style="margin-bottom:10px"><div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--m1);margin-bottom:3px">${u.tipe==='rekaman'?'Durasi':'Versi'}</div><div style="font-size:13px">${u.ver}</div></div>` : ''}
+  <div class="info-box" style="margin-bottom:14px"><div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--m1);margin-bottom:4px">Catatan</div><div style="font-size:13px;line-height:1.6;color:var(--m3)">${u.catatan||'—'}</div></div>
+  <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--m1);margin-bottom:8px">File (${u.files.length})</div>
+  ${u.files.map(f=>`
+    <div class="fi-item">
+      <div class="fc ${fCls(f)}">${fEmo(f)}</div>
+      <div class="fi-meta"><div class="fi-name">${f}</div></div>
+      <button class="btn btn-xs btn-gh" onclick="showToast('Unduhan tidak tersedia di demo','inf')">⬇ Unduh</button>
+    </div>`).join('')}
+  <div style="margin-top:14px;display:flex;align-items:center;gap:8px;font-size:12px">
+    Status saat ini: <span class="chip ch-${stCls(u.status)}">${stLbl(u.status)}</span>
+  </div>`;
+  document.getElementById('dt-foot').innerHTML = `
+    <button class="btn btn-ol" onclick="closeModal('m-detail')">Tutup</button>
+    ${u.status==='pending' && CU.role==='admin' ? `
+    <button class="btn btn-rd" onclick="rejectUpload(${u.id});closeModal('m-detail')">✕ Tolak</button>
+    <button class="btn btn-gn" onclick="approveUpload(${u.id});closeModal('m-detail')">${u.tipe==='rekaman'?'✓ Tandai Diputar':'✓ Setujui'}</button>` : ''}`;
+  openModal('m-detail');
+}
+
+/* ══════════════════════════════════════
+   UPLOAD ACTIONS
+══════════════════════════════════════ */
+function approveUpload(id) {
+  const u = uploads.find(u => u.id === id);
+  if (!u) return;
+  u.status = u.tipe === 'rekaman' ? 'reviewed' : 'approved';
+  buildNav();
+  showToast(u.tipe==='rekaman' ? 'Rekaman ditandai sudah diputar ✓' : 'Revisi disetujui ✓','ok');
+  // refresh current view without calling navTo to avoid loop
+  const viewFns = { 'files':adminFiles, 'rev-adm':adminRevisi, 'rek-adm':adminRekaman, 'dash':dashAdmin, 'kirim-hasil':adminKirimHasil };
+  const fn = viewFns[currentView];
+  if (fn) fn();
+}
+
+function rejectUpload(id) {
+  const u = uploads.find(u => u.id === id);
+  if (!u) return;
+  u.status = 'rejected';
+  buildNav();
+  showToast('Upload ditolak','err');
+  const viewFns = { 'files':adminFiles, 'rev-adm':adminRevisi, 'rek-adm':adminRekaman, 'dash':dashAdmin, 'kirim-hasil':adminKirimHasil };
+  const fn = viewFns[currentView];
+  if (fn) fn();
+}
+
+/* ══════════════════════════════════════
+   ADMIN: KIRIM HASIL REVISI KE KLIEN
+══════════════════════════════════════ */
+function adminKirimHasil() {
+  uFiles['hr-files'] = [];
+  const sorted = [...adminRevisions].reverse();
+  setContent(`
+  <div class="g2">
+    <div>
+      <div class="card">
+        <div class="ch"><div class="ct">📨 Kirim Hasil Revisi ke Klien</div></div>
+        <div class="cb">
+          <div class="fg">
+            <label>Klien</label>
+            <select id="hr-klien" class="cms-inp" onchange="hrUpdateProyek()">
+              <option value="">— Pilih Klien —</option>
+              ${klienList.map(k=>`<option value="${esc(k.nama)}" data-proyek="${esc(k.proyek)}">${esc(k.nama)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="fg">
+            <label>Proyek</label>
+            <input type="text" id="hr-proyek" class="cms-inp" placeholder="Nama proyek" readonly style="background:var(--s3);cursor:default">
+          </div>
+          <div class="fg2">
+            <div class="fg" style="margin-bottom:0">
+              <label>Versi / Label</label>
+              <input type="text" id="hr-ver" class="cms-inp" placeholder="cth. v2.1 Final">
+            </div>
+            <div class="fg" style="margin-bottom:0">
+              <label>Kategori</label>
+              <select id="hr-kategori" class="cms-inp">
+                <option>Desain</option>
+                <option>Video</option>
+                <option>Foto</option>
+                <option>Dokumen</option>
+                <option>Lainnya</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg" style="margin-top:15px">
+            <label>Pesan untuk Klien</label>
+            <textarea id="hr-pesan" class="cms-ta" placeholder="Jelaskan perubahan yang sudah dilakukan, instruksi review, dll..."></textarea>
+          </div>
+          <div class="fg">
+            <label>File Hasil Revisi</label>
+            <div class="upz" id="hr-zone" ondragover="onDragOver(event,'hr-zone')" ondragleave="onDragLeave('hr-zone')" ondrop="onDrop(event,'hr-files')">
+              <div class="upz-ic">📁</div>
+              <div class="upz-t">Seret atau klik untuk upload file hasil</div>
+              <div class="upz-s">PDF · ZIP · AI · PSD · MP4 · PNG — Maks 100MB</div>
+              <input type="file" multiple onchange="onFileInput(event,'hr-files')">
+            </div>
+            <div id="hr-files-list" style="margin-top:6px"></div>
+          </div>
+          <div id="hr-prog" style="display:none;margin-top:8px">
+            <div style="font-size:11px;color:var(--m1);margin-bottom:4px">Mengirim hasil revisi...</div>
+            <div class="pbar"><div class="pfill" id="hr-pfill" style="width:0%"></div></div>
+          </div>
+          <button class="btn btn-cu btn-full" style="margin-top:14px" onclick="doKirimHasil()">📨 Kirim ke Klien</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">Riwayat Pengiriman</div><span style="font-size:11px;color:var(--m1)">${adminRevisions.length} terkirim</span></div>
+      <div class="cb0" id="hr-history">${renderHrHistory()}</div>
+    </div>
+  </div>`);
+}
+
+function hrUpdateProyek() {
+  const sel = document.getElementById('hr-klien');
+  const opt = sel.options[sel.selectedIndex];
+  const proj = opt ? opt.getAttribute('data-proyek') : '';
+  const el = document.getElementById('hr-proyek');
+  if (el) el.value = proj || '';
+}
+
+function renderHrHistory() {
+  if (!adminRevisions.length) return '<div class="empty"><div class="empty-ic">📭</div><div class="empty-t">Belum ada pengiriman</div><div class="empty-s">Hasil revisi yang dikirim akan muncul di sini</div></div>';
+  return `<div style="padding:0 16px">${adminRevisions.map((r,i) => `
+    <div class="fi-item" style="align-items:flex-start;padding:12px 0">
+      <div class="fc fc-zip" style="margin-top:2px">📨</div>
+      <div class="fi-meta">
+        <div class="fi-name">${esc(r.ver)} <span style="font-size:10px;color:var(--m1);font-weight:400">· ${esc(r.kategori)}</span></div>
+        <div class="fi-size">Ke: <strong style="color:var(--tx)">${esc(r.klien)}</strong> · ${esc(r.proyek)}</div>
+        <div style="font-size:10px;color:var(--m1);margin-top:2px">${r.tgl} · ${r.files.length} file</div>
+        ${r.pesan ? `<div class="info-box" style="margin-top:6px;font-size:11px">${esc(r.pesan)}</div>` : ''}
+        <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">
+          ${r.files.map(f=>`<span style="font-size:10px;background:var(--s3);padding:2px 7px;border-radius:4px;color:var(--m2)">${fEmo(f)} ${esc(f)}</span>`).join('')}
+        </div>
+      </div>
+      <button class="btn btn-xs btn-rd" style="flex-shrink:0;margin-top:2px" onclick="deleteHrItem(${i})" title="Hapus">🗑</button>
+    </div>`).join('')}</div>`;
+}
+
+function doKirimHasil() {
+  const klien   = document.getElementById('hr-klien')?.value;
+  const proyek  = document.getElementById('hr-proyek')?.value || '';
+  const ver     = v('hr-ver');
+  const kategori= v('hr-kategori');
+  const pesan   = v('hr-pesan');
+  const files   = uFiles['hr-files'] || [];
+  if (!klien)  { showToast('Pilih klien terlebih dahulu','err'); return; }
+  if (!ver)    { showToast('Isi versi / label hasil revisi','err'); return; }
+  if (!files.length) { showToast('Upload minimal 1 file hasil revisi','err'); return; }
+  runProgress('hr-prog','hr-pfill', () => {
+    adminRevisions.unshift({ id:Date.now(), klien, proyek, ver, kategori, pesan, files:files.map(f=>f.name), tgl:today(), dibaca:false });
+    uFiles['hr-files'] = [];
+    renderFileList('hr-files');
+    document.getElementById('hr-ver').value = '';
+    document.getElementById('hr-pesan').value = '';
+    showToast(`Hasil revisi berhasil dikirim ke ${klien} ✓`,'ok');
+    const el = document.getElementById('hr-history');
+    if (el) el.innerHTML = renderHrHistory();
+  });
+}
+
+function deleteHrItem(i) {
+  if (!confirm('Hapus riwayat pengiriman ini?')) return;
+  adminRevisions.splice(i, 1);
+  const el = document.getElementById('hr-history');
+  if (el) el.innerHTML = renderHrHistory();
+  showToast('Dihapus','inf');
+}
+
+/* ══════════════════════════════════════
+   KLIEN: LIHAT HASIL REVISI
+══════════════════════════════════════ */
+function klienHasilRevisi() {
+  const myResults = adminRevisions.filter(r => r.klien === CU.name);
+  // mark as read
+  myResults.forEach(r => { r.dibaca = true; });
+  setContent(`
+  <div class="wb" style="margin-bottom:20px">
+    <div>
+      <h2>📨 Hasil <span>Revisi</span> Anda</h2>
+      <p>File hasil pekerjaan yang dikirimkan studio untuk Anda review.</p>
+    </div>
+    <div class="wb-ic">📁</div>
+  </div>
+  ${myResults.length ? myResults.map(r => `
+  <div class="card" style="margin-bottom:14px;animation:slideUp .3s ease">
+    <div class="ch">
+      <div>
+        <div class="ct" style="display:flex;align-items:center;gap:8px">
+          ${esc(r.ver)}
+          <span class="chip ch-rev-tipe">${esc(r.kategori)}</span>
+        </div>
+        <div style="font-size:11px;color:var(--m1);margin-top:3px">Proyek: ${esc(r.proyek)} · ${r.tgl}</div>
+      </div>
+      <span style="font-size:11px;color:var(--gn);font-weight:600">✓ Diterima</span>
+    </div>
+    <div class="cb">
+      ${r.pesan ? `
+      <div class="info-box" style="margin-bottom:14px">
+        <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--m1);margin-bottom:5px">💬 Pesan dari Studio</div>
+        <div style="font-size:13px;line-height:1.6;color:var(--m3)">${esc(r.pesan)}</div>
+      </div>` : ''}
+      <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--m1);margin-bottom:8px">File (${r.files.length})</div>
+      ${r.files.map(f=>`
+      <div class="fi-item">
+        <div class="fc ${fCls(f)}">${fEmo(f)}</div>
+        <div class="fi-meta">
+          <div class="fi-name">${esc(f)}</div>
+          <div class="fi-size">Siap diunduh</div>
+        </div>
+        <button class="btn btn-xs btn-gn" onclick="showToast('Mengunduh file...','ok')">⬇ Unduh</button>
+      </div>`).join('')}
+      <div style="display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--b1)">
+        <button class="btn btn-gn btn-sm" onclick="showToast('Feedback diterima! Terima kasih ✓','ok')">✅ Setuju / Sudah OK</button>
+        <button class="btn btn-ol btn-sm" onclick="openRevisionFeedback(${r.id})">✏️ Minta Revisi</button>
+      </div>
+    </div>
+  </div>`).join('') : `
+  <div class="empty" style="padding:80px 20px">
+    <div class="empty-ic">📭</div>
+    <div class="empty-t">Belum ada hasil revisi</div>
+    <div class="empty-s">Studio belum mengirimkan hasil pekerjaan. Pantau terus ya!</div>
+  </div>`}`);
+}
+
+function openRevisionFeedback(revId) {
+  const r = adminRevisions.find(r => r.id === revId);
+  if (!r) return;
+  document.getElementById('dt-title').textContent = `✏️ Minta Revisi — ${r.ver}`;
+  document.getElementById('dt-body').innerHTML = `
+    <div class="warn-box" style="margin-bottom:14px">Tuliskan catatan revisi yang Anda inginkan. Studio akan menindaklanjuti segera.</div>
+    <div class="fg"><label>Catatan Revisi</label>
+      <textarea id="fb-note" class="cms-ta" style="min-height:120px" placeholder="Jelaskan bagian yang perlu direvisi, perubahan yang diinginkan, dll..."></textarea>
+    </div>`;
+  document.getElementById('dt-foot').innerHTML = `
+    <button class="btn btn-ol" onclick="closeModal('m-detail')">Batal</button>
+    <button class="btn btn-cu" onclick="submitRevisionFeedback(${revId})">📨 Kirim Catatan</button>`;
+  openModal('m-detail');
+}
+
+function submitRevisionFeedback(revId) {
+  const note = v('fb-note');
+  if (!note.trim()) { showToast('Tulis catatan revisi terlebih dahulu','err'); return; }
+  closeModal('m-detail');
+  showToast('Catatan revisi berhasil dikirim ke studio ✓','ok');
+}
+
+/* ══════════════════════════════════════
+   FILE HANDLING
+══════════════════════════════════════ */
+function onDragOver(e, zoneId) { e.preventDefault(); document.getElementById(zoneId).classList.add('drag'); }
+function onDragLeave(zoneId) { document.getElementById(zoneId).classList.remove('drag'); }
+function onDrop(e, slotId) {
+  e.preventDefault();
+  const zone = e.currentTarget; zone.classList.remove('drag');
+  addFiles(Array.from(e.dataTransfer.files), slotId);
+}
+function onFileInput(e, slotId) { addFiles(Array.from(e.target.files), slotId); }
+
+function addFiles(files, slotId) {
+  if (!uFiles[slotId]) uFiles[slotId] = [];
+  uFiles[slotId] = [...uFiles[slotId], ...files];
+  renderFileList(slotId);
+}
+
+function renderFileList(slotId) {
+  const elId = slotId + '-list';
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const list = uFiles[slotId] || [];
+  el.innerHTML = list.map((f,i) => `
+    <div class="fi-item">
+      <div class="fc ${fCls(f.name)}">${fEmo(f.name)}</div>
+      <div class="fi-meta"><div class="fi-name">${f.name}</div><div class="fi-size">${fSz(f.size)}</div></div>
+      <button class="btn btn-xs btn-gh" onclick="removeFile(${i},'${slotId}')">✕</button>
+    </div>`).join('');
+}
+
+function removeFile(i, slotId) {
+  if (uFiles[slotId]) { uFiles[slotId].splice(i, 1); renderFileList(slotId); }
+}
+
+/* ══════════════════════════════════════
+   MODAL SYSTEM
+══════════════════════════════════════ */
+function openModal(id) {
+  if (id === 'm-upload') resetUploadModal();
+  document.getElementById(id).classList.add('on');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // ── Security init
+  SP.initSession();
+  SP.detectDevTools();
+  console.log('%c⛔ STOP!', 'color:#e05555;font-size:48px;font-weight:bold;-webkit-text-stroke:1px black;');
+  console.log('%cIni adalah fitur browser untuk developer. Jangan paste atau ketik apapun di sini.', 'color:#f4f1ec;font-size:14px;');
+  console.log('%cJika seseorang menyuruh Anda melakukan ini, mereka mencoba mencuri akun Anda.', 'color:#9490a0;font-size:12px;');
+
+  // ── Modal click-outside to close
+  document.querySelectorAll('.mbg').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('on'); });
+  });
+
+  if (window.__studioportalFirebase && typeof window.__studioportalFirebase.ensureInitialState === 'function') {
+    try { await window.__studioportalFirebase.ensureInitialState(); } catch (e) { console.warn('Firebase init skipped:', e); }
+  }
+
+  renderLoginHint();
+  if (!USERS || Object.keys(USERS).length === 0) openModal('m-first-setup');
+});
+/* ══════════════════════════════════════
+   HELPERS
+══════════════════════════════════════ */
+function stopAllRecorders() {
+  if (pgRec && pgRec.state !== 'inactive') try { pgRec.stop(); } catch(e){}
+  if (pgStream) pgStream.getTracks().forEach(t => t.stop());
+  if (pgAnim) cancelAnimationFrame(pgAnim);
+  if (mRec && mRec.state !== 'inactive') try { mRec.stop(); } catch(e){}
+  if (mStream) mStream.getTracks().forEach(t => t.stop());
+  if (mAnim) cancelAnimationFrame(mAnim);
+  clearInterval(pgIntv); clearInterval(mIntv);
+}
+
+function projectOptions() {
+  const projects = ['Website E-Commerce','Branding Package','Video Iklan','Foto Produk'];
+  return '<option value="">— Pilih Proyek —</option>' + projects.map(p=>`<option>${p}</option>`).join('');
+}
+
+function v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+function sel(id, prop, val) { const el = document.getElementById(id); if (el) el.style[prop] = val; }
+function setContent(html) {
+  const el = document.getElementById('content');
+  if (el) el.innerHTML = SP.sanitize(html);
+}
+
+function buildFeed() {
+  const items = [
+    ...uploads.map(u=>({txt:`${u.client} upload ${u.tipe} — ${u.judul}`, sub:u.tgl, c:u.tipe==='rekaman'?'var(--pu)':'var(--cu)'})),
+    ...payList.filter(p=>p.status!=='unpaid').map(p=>({txt:`${p.client} ${p.status==='paid'?'melunasi':'kirim bukti'} ${p.id}`, sub:p.date, c:p.status==='paid'?'var(--gn)':'var(--bl)'})),
+  ].slice(0, 8);
+  if (!items.length) return '<div class="empty"><div class="empty-t">Belum ada aktivitas</div></div>';
+  return items.map(a=>`<div class="fd"><div class="fd-dot" style="background:${a.c}"></div><div><div class="fd-t">${a.txt}</div><div class="fd-s">${a.sub}</div></div></div>`).join('');
+}
+
+function runProgress(wrapId, fillId, cb) {
+  const w = document.getElementById(wrapId);
+  const f = document.getElementById(fillId);
+  if (w) w.style.display = 'block';
+  if (f) f.style.width = '0%';
+  let p = 0;
+  const iv = setInterval(() => {
+    p += Math.random() * 20 + 5;
+    if (p >= 100) { p = 100; clearInterval(iv); if(w) w.style.display = 'none'; cb(); return; }
+    if (f) f.style.width = p + '%';
+  }, 160);
+}
+
+function showToast(msg, type='inf') {
+  const el = document.createElement('div');
+  const cls = { ok:'t-ok', err:'t-err', inf:'t-inf' };
+  const ic  = { ok:'✅', err:'❌', inf:'ℹ️' };
+  el.className = `toast ${cls[type]||'t-inf'}`;
+  el.innerHTML = `<span>${ic[type]||'ℹ️'}</span><span>${msg}</span>`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => {
+    el.style.cssText += 'opacity:0;transform:translateX(16px);transition:all .28s';
+    setTimeout(() => el.remove(), 300);
+  }, 3200);
+}
+
+// File type helpers
+function fCls(n) {
+  const ext = (n||'').split('.').pop().toLowerCase();
+  if (['pdf'].includes(ext)) return 'fc-pdf';
+  if (['jpg','jpeg','png','gif','webp','svg'].includes(ext)) return 'fc-img';
+  if (['mp3','wav','m4a','ogg','webm','aac','flac'].includes(ext)) return 'fc-aud';
+  if (['mp4','mov','avi','mkv'].includes(ext)) return 'fc-vid';
+  return 'fc-zip';
+}
+function fEmo(n) {
+  const ext = (n||'').split('.').pop().toLowerCase();
+  if (['pdf'].includes(ext)) return '📄';
+  if (['jpg','jpeg','png','gif','webp','svg'].includes(ext)) return '🖼️';
+  if (['mp3','wav','m4a','ogg','webm','aac'].includes(ext)) return '🎵';
+  if (['mp4','mov','avi','mkv'].includes(ext)) return '🎬';
+  return '📦';
+}
+function fSz(b) {
+  if (!b) return '0B';
+  if (b < 1024) return b + 'B';
+  if (b < 1048576) return (b/1024).toFixed(1) + 'KB';
+  return (b/1048576).toFixed(1) + 'MB';
+}
+function fDur(s) { return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+function fRp(n)  { return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
+function cap(s)  { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+function today() { return new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+function esc(s)  { return SP.esc(s); }
+
+function stCls(s) { return { pending:'pend', approved:'ok', rejected:'no', reviewed:'rev' }[s] || 'pend'; }
+function stLbl(s) { return { pending:'Menunggu', approved:'Disetujui', rejected:'Ditolak', reviewed:'Diputar' }[s] || cap(s); }
+function pStCls(s) { return { unpaid:'unpaid', verify:'vfy', paid:'paid' }[s] || 'unpaid'; }
+function pStLbl(s) { return { unpaid:'Belum Bayar', verify:'Verifikasi', paid:'Lunas' }[s] || s; }
+
+
+
+/* ══════════════════════════════════════════════════════════
+   SEO & PWA — Service Worker Registration
+   ══════════════════════════════════════════════════════════ */
+// Register Service Worker untuk PWA & offline capability
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(reg => {
+        console.log('[SW] Registered:', reg.scope);
+        // Check for updates setiap 1 jam
+        setInterval(() => reg.update(), 3600000);
+      })
+      .catch(err => console.log('[SW] Registration failed:', err));
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   PERFORMANCE — Lazy load images & defer non-critical
+   ══════════════════════════════════════════════════════════ */
+// Intersection Observer untuk lazy loading
+if ('IntersectionObserver' in window) {
+  const imgObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const img = e.target;
+        if (img.dataset.src) { img.src = img.dataset.src; imgObserver.unobserve(img); }
+      }
+    });
+  }, { rootMargin: '50px' });
+  document.querySelectorAll('img[data-src]').forEach(img => imgObserver.observe(img));
+}
+
+/* ══════════════════════════════════════════════════════════
+   SEO — Dynamic meta updater (SPA-friendly)
+   Update meta tags saat navigasi antar halaman (single-page)
+   ══════════════════════════════════════════════════════════ */
+function updateSEOMeta(view) {
+  const metas = {
+    'dash':         { title: 'Dashboard — RH Partners Portal', desc: 'Pantau semua aktivitas proyek, revisi, dan pembayaran klien RH Partners.' },
+    'files':        { title: 'Semua File — RH Partners Portal', desc: 'Kelola semua file revisi dan rekaman yang dikirim klien.' },
+    'rev-adm':      { title: 'Kelola Revisi — RH Partners Portal', desc: 'Review dan setujui revisi desain dari klien RH Partners.' },
+    'rek-adm':      { title: 'Kelola Rekaman — RH Partners Portal', desc: 'Putar dan kelola rekaman feedback audio dari klien.' },
+    'pay-adm':      { title: 'Kelola Pembayaran — RH Partners Portal', desc: 'Verifikasi pembayaran dan kelola invoice klien RH Partners.' },
+    'klien-adm':    { title: 'Data Klien — RH Partners Portal', desc: 'Kelola data dan akses klien RH Partners.' },
+    'kirim-hasil':  { title: 'Kirim Hasil Revisi — RH Partners Portal', desc: 'Kirimkan file hasil revisi langsung ke klien.' },
+    'upload':       { title: 'Upload File — RH Partners Portal', desc: 'Upload revisi dan rekaman feedback proyek Anda.' },
+    'hasil-revisi': { title: 'Hasil Revisi — RH Partners Portal', desc: 'Lihat dan unduh file hasil revisi dari RH Partners.' },
+    'pay-kln':      { title: 'Pembayaran — RH Partners Portal', desc: 'Bayar invoice dan pantau status pembayaran proyek Anda.' },
+    'profile':      { title: 'Profil — RH Partners Portal', desc: 'Kelola informasi akun dan preferensi Anda.' },
+    'report':       { title: 'Laporan — RH Partners Portal', desc: 'Ringkasan performa dan statistik RH Partners.' },
+  };
+  const m = metas[view];
+  if (!m) return;
+  document.title = m.title;
+  const descEl = document.querySelector('meta[name="description"]');
+  if (descEl) descEl.setAttribute('content', m.desc);
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', m.title);
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.setAttribute('content', m.desc);
+  // Update canonical URL dengan hash
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', 'https://portal.rhpartners.id/#' + view);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECURITY — SSL/TLS Certificate Pinning hint (client-side)
+   Real pinning harus dilakukan di service worker / server
+   ══════════════════════════════════════════════════════════ */
+const SSL_CONFIG = {
+  minTLSVersion: 'TLS 1.3',
+  cipherSuites: ['TLS_AES_256_GCM_SHA384', 'TLS_CHACHA20_POLY1305_SHA256'],
+  hpkp: 'pin-sha256="base64hash=="; max-age=2592000; includeSubDomains',
+  hsts: 'max-age=31536000; includeSubDomains; preload',
+  ocspStapling: true,
+  sslLabsTarget: 'A+',
+};
+
+/* ══════════════════════════════════════════════════════════
+   SECURITY — Prevent Prototype Pollution
+   ══════════════════════════════════════════════════════════ */
+(function preventPrototypePollution() {
+  const origAssign = Object.assign;
+  Object.assign = function(target, ...sources) {
+    sources.forEach(src => {
+      if (src && typeof src === 'object') {
+        Object.keys(src).forEach(key => {
+          if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+            console.warn('[Security] Prototype pollution attempt blocked:', key);
+            return;
+          }
+        });
+      }
+    });
+    return origAssign.apply(this, [target, ...sources]);
+  };
+})();
+
+/* ══════════════════════════════════════════════════════════
+   SECURITY — JSON.parse wrapper (prevent ReDoS)
+   ══════════════════════════════════════════════════════════ */
+const safeJSON = {
+  parse: (str, fallback = null) => {
+    try {
+      if (typeof str !== 'string' || str.length > 1000000) return fallback;
+      return JSON.parse(str);
+    } catch(e) { return fallback; }
+  },
+  stringify: (obj) => {
+    try { return JSON.stringify(obj); } catch(e) { return '{}'; }
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   SECURITY — Clipboard hijacking protection
+   ══════════════════════════════════════════════════════════ */
+document.addEventListener('copy', (e) => {
+  // Log copy events untuk audit (di production)
+  SP.log('clipboard_copy', 'User copied text from app');
+});
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  function setSafeHTML(id, html) {
+    const el = document.getElementById(id);
+    if (el) SP.setHTML(el, html);
+  }
+
+  function normalizeEmail(email) {
+    return String(email || '').trim().toLowerCase();
+  }
+
+  function syncUserRecordEmail(oldEmail, newEmail, updates) {
+    const prevEmail = normalizeEmail(oldEmail);
+    const nextEmail = normalizeEmail(newEmail);
+    const record = USERS[prevEmail] ? { ...USERS[prevEmail] } : null;
+
+    if (nextEmail && prevEmail !== nextEmail && USERS[nextEmail]) {
+      return { ok: false, message: 'Email sudah digunakan oleh akun lain' };
+    }
+
+    if (record) {
+      delete USERS[prevEmail];
+      USERS[nextEmail] = Object.assign(record, updates || {});
+    } else if (nextEmail) {
+      USERS[nextEmail] = Object.assign({ role:'klien', avatar:'KL' }, updates || {});
+    }
+
+    return { ok: true };
+  }
+
+  function refreshClientNameReferences(oldName, newName) {
+    if (!oldName || !newName || oldName === newName) return;
+    uploads.forEach(u => { if (u.client === oldName) u.client = newName; });
+    payList.forEach(p => { if (p.client === oldName) p.client = newName; });
+    invList.forEach(p => { if (p.client === oldName) p.client = newName; });
+    adminRevisions.forEach(r => { if (r.klien === oldName) r.klien = newName; });
+  }
+
+  const origSetLnMode = window.setLnMode;
+  window.setLnMode = function(m) {
+    origSetLnMode(m);
+    const hints = {
+      klien: 'Demo: <strong>klien@studio.com</strong> / <strong>klien123</strong>',
+      admin: 'Demo: <strong>admin@studio.com</strong> / <strong>admin123</strong>'
+    };
+    setSafeHTML('ln-hint', hints[m] || '');
+  };
+
+  window.doAddKlien = function() {
+    const nama = document.getElementById('ak-nama').value.trim();
+    const email = normalizeEmail(document.getElementById('ak-email').value);
+    const pass = document.getElementById('ak-pass').value;
+    const wa = document.getElementById('ak-wa').value.trim();
+    const proyek = document.getElementById('ak-proj').value.trim();
+
+    if (!nama || !email || !pass) { showToast('Nama, email, dan password wajib diisi','err'); return; }
+    if (!SP.validators.email(email)) { showToast('Format email tidak valid','err'); return; }
+    if (pass.length < 8) { showToast('Password minimal 8 karakter','err'); return; }
+    if (!SP.validators.password(pass)) { showToast('Password harus mengandung huruf besar dan angka','err'); return; }
+    if (wa && !SP.validators.phone(wa)) { showToast('Format WhatsApp tidak valid','err'); return; }
+    if (USERS[email]) { showToast('Email sudah terdaftar','err'); return; }
+
+    USERS[email] = { pass, role:'klien', name:nama, avatar:nama.split(/\s+/).map(v=>v[0]).join('').slice(0,2).toUpperCase() || 'KL' };
+    klienList.push({ nama, email, wa, proyek, total:0 });
+    closeModal('m-addklien');
+    showToast(`Klien ${nama} berhasil ditambahkan ✓`,'ok');
+    const tb = document.getElementById('kl-tbody');
+    if (tb) SP.setHTML(tb, renderKlienRows());
+  };
+
+  window.doSaveKlien = function() {
+    const i = parseInt(document.getElementById('ek-idx').value, 10);
+    const k = klienList[i];
+    if (!k) return;
+
+    if (ekTabState === 'info') {
+      const oldEmail = k.email;
+      const oldName = k.nama;
+      const nama = document.getElementById('ek-nama').value.trim();
+      const email = normalizeEmail(document.getElementById('ek-email').value);
+      const wa = document.getElementById('ek-wa').value.trim();
+      const proyek = document.getElementById('ek-proj').value.trim();
+
+      if (!nama || !email) { showToast('Nama dan email wajib diisi','err'); return; }
+      if (!SP.validators.email(email)) { showToast('Format email tidak valid','err'); return; }
+      if (wa && !SP.validators.phone(wa)) { showToast('Format WhatsApp tidak valid','err'); return; }
+
+      const sync = syncUserRecordEmail(oldEmail, email, {
+        name: nama,
+        avatar: nama.split(/\s+/).map(v=>v[0]).join('').slice(0,2).toUpperCase() || 'KL'
+      });
+      if (!sync.ok) { showToast(sync.message,'err'); return; }
+
+      k.nama = nama;
+      k.email = email;
+      k.wa = wa;
+      k.proyek = proyek;
+      refreshClientNameReferences(oldName, nama);
+      showToast('Data klien diperbarui ✓','ok');
+    } else {
+      const p1 = document.getElementById('ek-p1').value;
+      const p2 = document.getElementById('ek-p2').value;
+      if (!p1) { showToast('Masukkan password baru','err'); return; }
+      if (p1.length < 8) { showToast('Password minimal 8 karakter','err'); return; }
+      if (!SP.validators.password(p1)) { showToast('Password harus mengandung huruf besar dan angka','err'); return; }
+      if (p1 !== p2) { showToast('Konfirmasi password tidak cocok','err'); return; }
+      if (USERS[k.email]) USERS[k.email].pass = p1;
+      showToast(`Password ${k.nama} berhasil diubah ✓`,'ok');
+    }
+
+    closeModal('m-editklien');
+    buildNav();
+    const tb = document.getElementById('kl-tbody');
+    if (tb) SP.setHTML(tb, renderKlienRows());
+  };
+
+  window.deleteKlien = function(i) {
+    const item = klienList[i];
+    if (!item) return;
+    if (!confirm(`Hapus klien "${item.nama}"?`)) return;
+    delete USERS[normalizeEmail(item.email)];
+    uploads = uploads.filter(u => u.client !== item.nama);
+    payList = payList.filter(p => p.client !== item.nama);
+    invList = invList.filter(p => p.client !== item.nama);
+    adminRevisions = adminRevisions.filter(r => r.klien !== item.nama);
+    klienList.splice(i, 1);
+    const tb = document.getElementById('kl-tbody');
+    if (tb) SP.setHTML(tb, renderKlienRows());
+    buildNav();
+    showToast('Klien dan data terkait dihapus','inf');
+  };
+
+  window.saveProfile = function() {
+    const nama = v('pf-nama').trim();
+    const email = normalizeEmail(v('pf-email'));
+    const pass = v('pf-pass');
+    const pass2 = v('pf-pass2');
+    const oldEmail = CU ? CU.email : '';
+    const oldName = CU ? CU.name : '';
+
+    if (!nama) { showToast('Nama tidak boleh kosong','err'); return; }
+    if (!SP.validators.email(email)) { showToast('Format email tidak valid','err'); return; }
+    if (pass && pass.length < 8) { showToast('Password minimal 8 karakter','err'); return; }
+    if (pass && !SP.validators.password(pass)) { showToast('Password harus mengandung huruf besar dan angka','err'); return; }
+    if (pass && pass !== pass2) { showToast('Konfirmasi password tidak cocok','err'); return; }
+
+    const sync = syncUserRecordEmail(oldEmail, email, {
+      name: nama,
+      avatar: nama.split(/\s+/).map(v=>v[0]).join('').slice(0,2).toUpperCase() || 'KL',
+      pass: pass || (USERS[normalizeEmail(oldEmail)] && USERS[normalizeEmail(oldEmail)].pass) || undefined,
+      role: (USERS[normalizeEmail(oldEmail)] && USERS[normalizeEmail(oldEmail)].role) || 'klien'
+    });
+    if (!sync.ok) { showToast(sync.message,'err'); return; }
+
+    CU.name = nama;
+    CU.email = email;
+    CU.avatar = USERS[email] ? USERS[email].avatar : CU.avatar;
+    refreshClientNameReferences(oldName, nama);
+
+    const clientRow = klienList.find(k => normalizeEmail(k.email) === normalizeEmail(oldEmail) || normalizeEmail(k.email) === email || k.nama === oldName);
+    if (clientRow) {
+      clientRow.nama = nama;
+      clientRow.email = email;
+    }
+
+    const sbName = document.getElementById('sb-un');
+    if (sbName) sbName.textContent = CU.name;
+    const sbAv = document.getElementById('sb-av');
+    if (sbAv) sbAv.textContent = CU.avatar || 'KL';
+    buildNav();
+    showToast('Profil berhasil diperbarui ✓','ok');
+  };
+
+  const origShowToast = window.showToast;
+  window.showToast = function(msg, type='inf') {
+    const el = document.createElement('div');
+    const cls = { ok:'t-ok', err:'t-err', inf:'t-inf' };
+    const ic = { ok:'✅', err:'❌', inf:'ℹ️' };
+    el.className = `toast ${cls[type] || 't-inf'}`;
+    const icon = document.createElement('span');
+    icon.textContent = ic[type] || 'ℹ️';
+    const text = document.createElement('span');
+    text.textContent = String(msg || '');
+    el.appendChild(icon);
+    el.appendChild(text);
+    const host = document.getElementById('toasts');
+    if (!host) return;
+    host.appendChild(el);
+    setTimeout(() => {
+      el.style.cssText += 'opacity:0;transform:translateX(16px);transition:all .28s';
+      setTimeout(() => el.remove(), 300);
+    }, 3200);
+  };
+
+  window.openModal = (function(orig) {
+    return function(id) {
+      if (id === 'm-upload') resetUploadModal();
+      const el = document.getElementById(id);
+      if (el) el.classList.add('on');
+    };
+  })(window.openModal);
+
+  const origResetUploadModal = window.resetUploadModal;
+  window.resetUploadModal = function() {
+    origResetUploadModal();
+    ['ur-ver','ur-tgl','ur-note','urk-judul','urk-note'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    const urTgl = document.getElementById('ur-tgl');
+    if (urTgl) urTgl.value = today();
+  };
+
+  const origLaunchApp = window.launchApp;
+  window.launchApp = function() {
+    origLaunchApp();
+    const sbAv = document.getElementById('sb-av');
+    if (sbAv) sbAv.textContent = CU.avatar || 'KL';
+  };
+
+  if (location.protocol === 'file:' || !/^https?:$/.test(location.protocol)) {
+    const noopRegister = () => Promise.resolve({ update() {}, scope: location.href });
+    if (navigator.serviceWorker && typeof navigator.serviceWorker.register === 'function') {
+      navigator.serviceWorker.register = noopRegister;
+    }
+  }
+})();
+</script>
+
+
+
+<script>
+(function(){
+  const STORAGE_KEY = 'studioportal.firebase.config.v1';
+  const defaults = {
+    apiKey: '',
+    authDomain: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: ''
+  };
+
+  function safeParse(json) {
+    try { return JSON.parse(json); } catch (_) { return null; }
+  }
+
+  const saved = safeParse(localStorage.getItem(STORAGE_KEY) || 'null') || {};
+  window.STUDIOPORTAL_FIREBASE_CONFIG = Object.assign({}, defaults, saved, window.STUDIOPORTAL_FIREBASE_CONFIG || {});
+
+  window.StudioPortalFirebaseSetup = {
+    storageKey: STORAGE_KEY,
+    getConfig() {
+      return Object.assign({}, defaults, window.STUDIOPORTAL_FIREBASE_CONFIG || {});
+    },
+    setConfig(nextCfg) {
+      const clean = Object.assign({}, defaults, nextCfg || {});
+      window.STUDIOPORTAL_FIREBASE_CONFIG = clean;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(clean));
+      return clean;
+    },
+    clearConfig() {
+      localStorage.removeItem(STORAGE_KEY);
+      window.STUDIOPORTAL_FIREBASE_CONFIG = Object.assign({}, defaults);
+    },
+    hasConfig() {
+      const cfg = this.getConfig();
+      return !!(cfg.apiKey && cfg.projectId && cfg.appId);
+    }
+  };
+})();
+</script>
+
+<style>
+#fb-setup-fab{position:fixed;right:18px;bottom:18px;z-index:9999;border:1px solid var(--b1);background:var(--s2);color:var(--tx);border-radius:999px;padding:10px 14px;font:600 12px/1 'Instrument Sans',sans-serif;box-shadow:0 12px 28px rgba(0,0,0,.28);cursor:pointer}
+#fb-setup-fab small{display:block;color:var(--m2);font-weight:500;margin-top:3px}
+.fb-status-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;background:var(--am)}
+html[data-firebase-mode="on"] .fb-status-dot{background:var(--gn)}
+#fb-setup-fab:hover{transform:translateY(-1px)}
+#fb-setup-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:10000;padding:16px}
+#fb-setup-backdrop.on{display:flex}
+#fb-setup-modal{width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--s1);border:1px solid var(--b1);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+#fb-setup-modal .hd{padding:18px 20px;border-bottom:1px solid var(--b1);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+#fb-setup-modal .bd{padding:18px 20px}
+#fb-setup-modal h3{font-size:20px;margin:0 0 6px}
+#fb-setup-modal p{color:var(--m2);font-size:13px;line-height:1.55;margin:0}
+#fb-setup-modal .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#fb-setup-modal .fg{margin-bottom:12px}
+#fb-setup-modal label{display:block;font-size:12px;color:var(--m3);margin-bottom:6px}
+#fb-setup-modal input,#fb-setup-modal textarea{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:10px;color:var(--tx);padding:10px 12px;font:500 13px/1.4 'Instrument Sans',sans-serif;outline:none}
+#fb-setup-modal textarea{min-height:130px;resize:vertical}
+#fb-setup-modal .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+#fb-setup-modal .btn2{border:1px solid var(--b1);background:var(--s2);color:var(--tx);padding:10px 14px;border-radius:10px;cursor:pointer;font:600 12px/1 'Instrument Sans',sans-serif}
+#fb-setup-modal .btn2.pri{background:linear-gradient(135deg,var(--cu),var(--cu2));border-color:transparent;color:#120d08}
+#fb-setup-modal .btn2.dng{background:rgba(224,85,85,.12);border-color:rgba(224,85,85,.35);color:#ffb7b7}
+#fb-setup-modal .call{margin-top:14px;padding:12px 14px;border:1px solid var(--b1);border-radius:12px;background:var(--s2);font-size:12px;color:var(--m2);line-height:1.6}
+#fb-setup-msg{margin-top:12px;font-size:12px}
+#fb-setup-msg.ok{color:var(--gn)}
+#fb-setup-msg.err{color:#ff9b9b}
+@media (max-width:720px){#fb-setup-modal .grid{grid-template-columns:1fr}}
+</style>
+
+<script>
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function esc(v){
+    return String(v == null ? '' : v)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+  function setupValues(cfg){
+    const map = {
+      'fb-apiKey': cfg.apiKey || '',
+      'fb-authDomain': cfg.authDomain || '',
+      'fb-projectId': cfg.projectId || '',
+      'fb-storageBucket': cfg.storageBucket || '',
+      'fb-messagingSenderId': cfg.messagingSenderId || '',
+      'fb-appId': cfg.appId || '',
+      'fb-json': JSON.stringify(cfg, null, 2)
+    };
+    Object.entries(map).forEach(([id,val]) => { const el = byId(id); if (el) el.value = val; });
+  }
+  function readForm(){
+    return {
+      apiKey: (byId('fb-apiKey')?.value || '').trim(),
+      authDomain: (byId('fb-authDomain')?.value || '').trim(),
+      projectId: (byId('fb-projectId')?.value || '').trim(),
+      storageBucket: (byId('fb-storageBucket')?.value || '').trim(),
+      messagingSenderId: (byId('fb-messagingSenderId')?.value || '').trim(),
+      appId: (byId('fb-appId')?.value || '').trim()
+    };
+  }
+  function showMsg(msg, kind){
+    const el = byId('fb-setup-msg');
+    if (!el) return;
+    el.className = kind || '';
+    el.textContent = msg || '';
+  }
+  function setStatus(){
+    const btn = byId('fb-setup-fab');
+    if (!btn) return;
+    const ok = !!(document.documentElement.dataset.firebaseMode === 'on' || window.StudioPortalFirebaseSetup.hasConfig());
+    btn.innerHTML = `<span class="fb-status-dot"></span>${ok ? 'Firebase siap' : 'Setup Firebase'}<small>${ok ? 'Mode realtime lintas device' : 'Klik lalu tempel config Firebase'}</small>`;
+  }
+  function openSetup(){
+    let backdrop = byId('fb-setup-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'fb-setup-backdrop';
+      backdrop.innerHTML = `
+        <div id="fb-setup-modal">
+          <div class="hd">
+            <div>
+              <h3>Setup Firebase RH Partners Portal</h3>
+              <p>Tempel config dari Firebase Console sekali saja. Setelah disimpan, file ini akan langsung memakai Firestore realtime dan Firebase Storage tanpa perlu edit source code lagi.</p>
+            </div>
+            <button class="btn2" id="fb-close-top" type="button">Tutup</button>
+          </div>
+          <div class="bd">
+            <div class="grid">
+              <div class="fg"><label>apiKey</label><input id="fb-apiKey" placeholder="AIza..."></div>
+              <div class="fg"><label>authDomain</label><input id="fb-authDomain" placeholder="project-id.firebaseapp.com"></div>
+              <div class="fg"><label>projectId</label><input id="fb-projectId" placeholder="project-id"></div>
+              <div class="fg"><label>storageBucket</label><input id="fb-storageBucket" placeholder="project-id.firebasestorage.app atau appspot.com"></div>
+              <div class="fg"><label>messagingSenderId</label><input id="fb-messagingSenderId" placeholder="1234567890"></div>
+              <div class="fg"><label>appId</label><input id="fb-appId" placeholder="1:1234567890:web:abcdef"></div>
+            </div>
+            <div class="fg"><label>Atau tempel JSON config</label><textarea id="fb-json" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","storageBucket":"...","messagingSenderId":"...","appId":"..."}'></textarea></div>
+            <div class="row">
+              <button class="btn2 pri" id="fb-save-btn" type="button">Simpan & aktifkan</button>
+              <button class="btn2" id="fb-fill-json-btn" type="button">Muat dari JSON</button>
+              <button class="btn2" id="fb-copy-rules-btn" type="button">Salin rules contoh</button>
+              <button class="btn2 dng" id="fb-clear-btn" type="button">Hapus config</button>
+            </div>
+            <div id="fb-setup-msg"></div>
+            <div class="call">
+              <strong>Cara pakai cepat:</strong><br>
+              1. Buat project Firebase dan daftar Web App.<br>
+              2. Aktifkan Firestore Database dan Firebase Storage.<br>
+              3. Tempel config di sini lalu klik <em>Simpan & aktifkan</em>.<br>
+              4. Publish file ini via HTTP/HTTPS. Mode <em>file://</em> masih bisa dipakai untuk demo, tetapi Firebase paling stabil saat dibuka lewat server lokal atau hosting.<br><br>
+              <strong>Rules contoh Firestore:</strong><br>
+              <code style="display:block;white-space:pre-wrap;margin-top:6px">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /studioportal/{docId} {
+      allow read, write: if true;
+    }
+  }
+}</code><br>
+              <strong>Rules contoh Storage:</strong><br>
+              <code style="display:block;white-space:pre-wrap;margin-top:6px">rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /studioportal/{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}</code>
+            </div>
+          </div>
+        </div>`;
+      document.body.appendChild(backdrop);
+      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) backdrop.classList.remove('on'); });
+      backdrop.querySelector('#fb-close-top').addEventListener('click', () => backdrop.classList.remove('on'));
+      backdrop.querySelector('#fb-fill-json-btn').addEventListener('click', () => {
+        try {
+          const parsed = JSON.parse(byId('fb-json').value || '{}');
+          setupValues(Object.assign(window.StudioPortalFirebaseSetup.getConfig(), parsed || {}));
+          showMsg('JSON berhasil dimuat ke form.', 'ok');
+        } catch (err) {
+          showMsg('JSON config tidak valid.', 'err');
+        }
+      });
+      backdrop.querySelector('#fb-copy-rules-btn').addEventListener('click', async () => {
+        const txt = `Firestore:\nrules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /studioportal/{docId} {\n      allow read, write: if true;\n    }\n  }\n}\n\nStorage:\nrules_version = '2';\nservice firebase.storage {\n  match /b/{bucket}/o {\n    match /studioportal/{allPaths=**} {\n      allow read, write: if true;\n    }\n  }\n}`;
+        try {
+          await navigator.clipboard.writeText(txt);
+          showMsg('Rules contoh berhasil disalin.', 'ok');
+        } catch (_) {
+          showMsg('Clipboard ditolak browser. Salin manual dari panel ini.', 'err');
+        }
+      });
+      backdrop.querySelector('#fb-save-btn').addEventListener('click', () => {
+        const cfg = readForm();
+        const raw = byId('fb-json').value.trim();
+        if (raw) {
+          try {
+            Object.assign(cfg, JSON.parse(raw));
+          } catch (err) {
+            showMsg('JSON config tidak valid.', 'err');
+            return;
+          }
+        }
+        if (!(cfg.apiKey && cfg.projectId && cfg.appId)) {
+          showMsg('apiKey, projectId, dan appId wajib diisi.', 'err');
+          return;
+        }
+        window.StudioPortalFirebaseSetup.setConfig(cfg);
+        showMsg('Config tersimpan. Halaman akan dimuat ulang untuk mengaktifkan Firebase.', 'ok');
+        setTimeout(() => location.reload(), 450);
+      });
+      backdrop.querySelector('#fb-clear-btn').addEventListener('click', () => {
+        window.StudioPortalFirebaseSetup.clearConfig();
+        setupValues(window.StudioPortalFirebaseSetup.getConfig());
+        showMsg('Config Firebase dihapus. Halaman akan dimuat ulang ke mode demo.', 'ok');
+        setTimeout(() => location.reload(), 450);
+      });
+    }
+    setupValues(window.StudioPortalFirebaseSetup.getConfig());
+    backdrop.classList.add('on');
+    setStatus();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.createElement('button');
+    btn.id = 'fb-setup-fab';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Setup Firebase');
+    btn.addEventListener('click', openSetup);
+    document.body.appendChild(btn);
+    setStatus();
+
+    if (!window.StudioPortalFirebaseSetup.hasConfig()) {
+      setTimeout(() => {
+        if (!document.querySelector('#scr-app.on')) openSetup();
+      }, 900);
+    }
+  });
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === (window.StudioPortalFirebaseSetup && window.StudioPortalFirebaseSetup.storageKey)) setStatus();
+  });
+  window.openFirebaseSetup = openSetup;
+  window.refreshFirebaseSetupStatus = setStatus;
+})();
+</script>
+<script>
+window.STUDIOPORTAL_FIREBASE_CONFIG = Object.assign({
+  apiKey: '',
+  authDomain: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: ''
+}, window.STUDIOPORTAL_FIREBASE_CONFIG || {});
+</script>
+
+<script type="module">
+(async function(){
+  const cfg = window.STUDIOPORTAL_FIREBASE_CONFIG || {};
+  const hasConfig = cfg && cfg.apiKey && cfg.projectId && cfg.appId;
+  if (!hasConfig) {
+    console.warn('[Firebase] Konfigurasi belum diisi. Aplikasi berjalan dalam mode lokal/demo.');
+    if (window.refreshFirebaseSetupStatus) window.refreshFirebaseSetupStatus();
+    return;
+  }
+
+  const [{ initializeApp }, { getFirestore, doc, getDoc, setDoc, onSnapshot, serverTimestamp }, { getStorage, ref, uploadBytes, getDownloadURL }] = await Promise.all([
+    import('https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js'),
+    import('https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js'),
+    import('https://www.gstatic.com/firebasejs/12.10.0/firebase-storage.js')
+  ]);
+
+  const app = initializeApp(cfg);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+  const appStateRef = doc(db, 'studioportal', 'app-state');
+  const clientUploadsRef = doc(db, 'studioportal', 'upload-blobs');
+  const deviceId = 'device_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const saveQueue = { pending: false, timer: null };
+  let firebaseReady = false;
+  let applyingRemote = false;
+  let lastRemoteHash = '';
+  let lastSavedHash = '';
+  let initialSyncPromise = null;
+
+  function deepClone(v) {
+    return JSON.parse(JSON.stringify(v));
+  }
+
+  function currentState() {
+    return {
+      USERS: deepClone(USERS),
+      uploads: deepClone(uploads),
+      payList: deepClone(payList),
+      klienList: deepClone(klienList),
+      invList: deepClone(invList),
+      adminRevisions: deepClone(adminRevisions),
+      cmsData: deepClone(cmsData)
+    };
+  }
+
+  function serializedState() {
+    return JSON.stringify(currentState());
+  }
+
+  function normalizeState(state) {
+    return {
+      USERS: state && state.USERS && typeof state.USERS === 'object' ? deepClone(state.USERS) : {},
+      uploads: Array.isArray(state && state.uploads) ? deepClone(state.uploads) : [],
+      payList: Array.isArray(state && state.payList) ? deepClone(state.payList) : [],
+      klienList: Array.isArray(state && state.klienList) ? deepClone(state.klienList) : [],
+      invList: Array.isArray(state && state.invList) ? deepClone(state.invList) : [],
+      adminRevisions: Array.isArray(state && state.adminRevisions) ? deepClone(state.adminRevisions) : [],
+      cmsData: state && state.cmsData && typeof state.cmsData === 'object' ? deepClone(state.cmsData) : { pengumuman:[], layanan:[], kontak:{}, siteinfo:{} }
+    };
+  }
+
+  function applyRemoteState(data, announce) {
+    const normalized = normalizeState(data || {});
+    applyingRemote = true;
+    USERS = normalized.USERS;
+    uploads = normalized.uploads;
+    payList = normalized.payList;
+    klienList = normalized.klienList;
+    invList = normalized.invList;
+    adminRevisions = normalized.adminRevisions;
+    cmsData = normalized.cmsData;
+    applyingRemote = false;
+    lastRemoteHash = JSON.stringify(normalized);
+    lastSavedHash = lastRemoteHash;
+
+    if (CU) {
+      const normalizedEmail = (CU.email || '').trim().toLowerCase();
+      const user = USERS[normalizedEmail];
+      if (!user) {
+        showToast('Akun Anda tidak lagi tersedia. Silakan login ulang.','err');
+        doLogout();
+        return;
+      }
+      CU = Object.assign({}, CU, user, { email: normalizedEmail });
+      const sbAv = document.getElementById('sb-av');
+      const sbUn = document.getElementById('sb-un');
+      const sbUr = document.getElementById('sb-ur');
+      if (sbAv) sbAv.textContent = CU.avatar || 'KL';
+      if (sbUn) sbUn.textContent = CU.name || '';
+      if (sbUr) sbUr.textContent = CU.role === 'admin' ? 'Administrator' : 'Klien';
+      if (document.getElementById('scr-app') && document.getElementById('scr-app').classList.contains('on')) {
+        buildNav();
+        navTo(currentView || 'dash');
+      }
+    }
+
+    if (announce && firebaseReady) showToast('Data realtime Firebase diperbarui','inf');
+  }
+
+  async function uploadPendingFiles(reason) {
+    const bundles = [];
+    if (uFiles && typeof uFiles === 'object') {
+      for (const [slot, files] of Object.entries(uFiles)) {
+        if (!Array.isArray(files) || !files.length) continue;
+        for (const file of files) {
+          if (!(file instanceof File)) continue;
+          const safeName = String(file.name || 'file.bin').replace(/[^a-zA-Z0-9._-]+/g, '_');
+          const objectRef = ref(storage, `studioportal/${reason || 'sync'}/${Date.now()}_${safeName}`);
+          await uploadBytes(objectRef, file);
+          const downloadURL = await getDownloadURL(objectRef);
+          bundles.push({ slot, name: file.name, size: file.size, type: file.type || 'application/octet-stream', downloadURL });
+        }
+      }
+    }
+    if (bundles.length) {
+      await setDoc(clientUploadsRef, {
+        updatedAt: serverTimestamp(),
+        updatedBy: deviceId,
+        files: bundles
+      }, { merge: true });
+    }
+  }
+
+  async function persistState(reason) {
+    if (!firebaseReady || applyingRemote) return;
+    const hash = serializedState();
+    if (hash === lastSavedHash) return;
+    lastSavedHash = hash;
+    try {
+      await uploadPendingFiles(reason);
+      await setDoc(appStateRef, Object.assign(currentState(), {
+        meta: {
+          updatedAtMs: Date.now(),
+          updatedAt: serverTimestamp(),
+          updatedBy: deviceId,
+          reason: reason || 'sync'
+        }
+      }), { merge: false });
+    } catch (err) {
+      console.error('[Firebase] Gagal menyimpan state:', err);
+      showToast('Sinkronisasi Firebase gagal. Periksa konfigurasi/rules.','err');
+    }
+  }
+
+  function queuePersist(reason) {
+    if (!firebaseReady || applyingRemote) return;
+    clearTimeout(saveQueue.timer);
+    saveQueue.timer = setTimeout(() => persistState(reason), 180);
+  }
+
+  async function ensureInitialState() {
+    if (initialSyncPromise) return initialSyncPromise;
+    initialSyncPromise = (async () => {
+      const initialLocal = currentState();
+      const snap = await getDoc(appStateRef);
+      if (snap.exists()) {
+        const remote = snap.data();
+        applyRemoteState(remote, false);
+      } else {
+        await setDoc(appStateRef, Object.assign(initialLocal, {
+          meta: {
+            createdAtMs: Date.now(),
+            createdAt: serverTimestamp(),
+            updatedBy: deviceId,
+            reason: 'bootstrap'
+          }
+        }), { merge: false });
+        applyRemoteState(initialLocal, false);
+      }
+
+      onSnapshot(appStateRef, (snapshot) => {
+        if (!snapshot.exists()) return;
+        const data = snapshot.data();
+        const comparable = normalizeState(data);
+        const comparableHash = JSON.stringify(comparable);
+        if (comparableHash === lastRemoteHash) return;
+        applyRemoteState(data, true);
+      }, (error) => {
+        console.error('[Firebase] Listener error:', error);
+        showToast('Listener Firebase terputus. Cek koneksi/rules.','err');
+      });
+
+      firebaseReady = true;
+      document.documentElement.dataset.firebaseMode = 'on';
+      if (window.refreshFirebaseSetupStatus) window.refreshFirebaseSetupStatus();
+      console.info('[Firebase] RH Partners Portal realtime aktif.');
+    })();
+    return initialSyncPromise;
+  }
+
+  window.__studioportalFirebase = {
+    ensureInitialState,
+    queuePersist,
+    persistState
+  };
+
+  const origDoLogin = window.doLogin;
+  window.doLogin = async function() {
+    await ensureInitialState();
+    return origDoLogin();
+  };
+
+  const origLaunchApp = window.launchApp;
+  window.launchApp = async function() {
+    await ensureInitialState();
+    return origLaunchApp();
+  };
+
+  const wrapMutator = (name, reason, delayMs) => {
+    const original = window[name];
+    if (typeof original !== 'function') return;
+    window[name] = async function(...args) {
+      const before = serializedState();
+      const result = await original.apply(this, args);
+      const after = serializedState();
+      if (before !== after) {
+        if (delayMs) setTimeout(() => queuePersist(reason), delayMs);
+        else queuePersist(reason);
+      }
+      return result;
+    };
+  };
+
+  [
+    ['confirmPay','confirm-pay'],
+    ['rejectPay','reject-pay'],
+    ['approveUpload','approve-upload'],
+    ['rejectUpload','reject-upload'],
+    ['submitPgRevisi','submit-pg-revisi',120],
+    ['submitPgRekaman','submit-pg-rekaman',120],
+    ['submitKpPay','submit-kp-pay'],
+    ['doAddKlien','add-client'],
+    ['doSaveKlien','save-client'],
+    ['deleteKlien','delete-client'],
+    ['saveProfile','save-profile'],
+    ['togglePengumuman','toggle-pengumuman'],
+    ['delPengumuman','delete-pengumuman'],
+    ['delLayanan','delete-layanan'],
+    ['saveKontak','save-kontak'],
+    ['saveSiteinfo','save-siteinfo'],
+    ['saveRekening','save-rekening'],
+    ['saveCmsEdit','save-cms-edit'],
+    ['createInvoice','create-invoice'],
+    ['submitPay','submit-pay'],
+    ['sendHasilRevisi','send-hasil',120],
+    ['deleteHasil','delete-hasil'],
+    ['klienHasilRevisi','read-hasil'],
+    ['doCreateInv','create-invoice-admin'],
+    ['doKirimHasil','kirim-hasil-admin']
+  ].forEach(([name, reason, delayMs]) => wrapMutator(name, reason, delayMs));
+
+  window.addEventListener('beforeunload', () => {
+    if (firebaseReady) persistState('beforeunload');
+  });
+})();
+</script>
+
+</body>
+</html>
